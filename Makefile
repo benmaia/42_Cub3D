@@ -9,7 +9,9 @@ PATH_BUILD		:= ./build
 PATH_OBJS		:= $(PATH_BUILD)/objs
 
 SRCS			:=	$(PATH_SRC)/main.c \
-					$(PATH_SRC)/mlx_stuff.c
+					$(PATH_SRC)/mlx_stuff.c \
+					$(PATH_SRC)/map.c \
+					$(PATH_SRC)/movement.c \
 
 
 OBJ				:= $(subst .c,.o,$(subst $(PATH_SRC), $(PATH_OBJS), $(SRCS)))
