@@ -14,11 +14,24 @@
 # 	define HEIGHT 816
 #	define MAP_HEIGHT 24
 #	define MAP_WIDTH 24
+
+#	define PI 3.141592635
+
 #	include <stdio.h>
 # 	include <stdlib.h>
 #	include <unistd.h>
 #	include <math.h>
 #	include "../mlx_linux/mlx.h"
+
+typedef struct s_player{
+	int x;
+	int y;
+	float ang;
+	float dx;
+	float dy;
+	float rx;
+	float ry;
+}				t_player;
 
 typedef struct	s_mlx {
 	void	*ptr;
@@ -32,7 +45,12 @@ typedef struct	s_mlx {
 	int 	squarey;
 	int		win_x;
 	int		win_y;
+	t_player	*p;
 }				t_mlx;
+
+
+
+
 
 typedef struct s_data
 {
@@ -48,7 +66,8 @@ int		key_hook(int keycode, t_mlx *mlx);
 int 	mouse_hook(int button, int x, int y, t_mlx *mlx);
 void	displayMap(t_mlx *mlx);
 void 	mlx_square(t_mlx *mlx, int x, int y, int size, int color);
-int		key_hook(int keycode, t_mlx *mlx);
 int 	mouse_hook(int button, int x, int y, t_mlx *mlx);
+void 	mlx_line_to(t_mlx *mlx,int x1, int y1, int x2, int y2, int color);
+void 	cast_rays(t_mlx *m);
 
 #	endif

@@ -12,6 +12,7 @@ SRCS			:=	$(PATH_SRC)/main.c \
 					$(PATH_SRC)/mlx_stuff.c \
 					$(PATH_SRC)/map.c \
 					$(PATH_SRC)/movement.c \
+					$(PATH_SRC)/rays.c \
 
 
 OBJ				:= $(subst .c,.o,$(subst $(PATH_SRC), $(PATH_OBJS), $(SRCS)))
