@@ -3,14 +3,6 @@
 void	img_pix_put(t_mlx *img, int x, int y, int color);
 int draw_square(t_mlx *mlx, int z, int k, int size);
 
-int calculateColor(int c){
-    if (c)
-        return(rgb_to_int(0,0,0));
-    return(rgb_to_int(255,255,255));
-}
-
-
-
 void mlx_line_to(t_mlx *mlx,int x1, int y1, int x2, int y2, int color)
 {
     int dx = abs(x2 - x1);
@@ -88,7 +80,6 @@ void draw_map(t_mlx *mlx, int map[24][24])
         mlx_square(mlx, col * square_widht, row * square_height, square_widht, 0x000000);
       else if (map[row][col] == 0)
         mlx_square(mlx, col * square_widht, row * square_height, square_widht, 0xFFFFFF);
-        //continue;
     }
   }
 }
@@ -122,7 +113,6 @@ void displayMap(t_mlx *mlx)
     {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
     };
     draw_map(mlx,map);
-    //display_grid(mlx);
     mlx_put_image_to_window(mlx->ptr, mlx->mlx_win,mlx->img , 0, 0);
 }
 

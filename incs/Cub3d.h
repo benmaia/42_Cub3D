@@ -15,7 +15,11 @@
 #	define MAP_HEIGHT 24
 #	define MAP_WIDTH 24
 
-#	define PI 3.141592635
+#	define SPEED 5
+#	define TILES 34
+
+#	define PI 3.14159
+#	define FOV PI / 3
 
 #	include <stdio.h>
 # 	include <stdlib.h>
@@ -45,12 +49,9 @@ typedef struct	s_mlx {
 	int 	squarey;
 	int		win_x;
 	int		win_y;
+	int 	**map;
 	t_player	*p;
 }				t_mlx;
-
-
-
-
 
 typedef struct s_data
 {
@@ -69,5 +70,6 @@ void 	mlx_square(t_mlx *mlx, int x, int y, int size, int color);
 int 	mouse_hook(int button, int x, int y, t_mlx *mlx);
 void 	mlx_line_to(t_mlx *mlx,int x1, int y1, int x2, int y2, int color);
 void 	cast_rays(t_mlx *m);
+int		has_wall(double x, double y, t_mlx *a);
 
 #	endif
