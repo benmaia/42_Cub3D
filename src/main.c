@@ -8,7 +8,7 @@ int	refresh_screen(t_mlx *mlx)
 	displayMap(mlx);
 	display_grid(mlx);
 	mlx_square(mlx, mlx->p->x, mlx->p->y, 10, rgb_to_int(0,155,123));
-	mlx_line_to(mlx, mlx->p->x, mlx->p->y, mlx->p->x + mlx->p->dx *15,mlx->p->y+mlx->p->dy*15,rgb_to_int(255,0,0));
+	//mlx_line_to(mlx, mlx->p->x, mlx->p->y, mlx->p->x + mlx->p->dx *15,mlx->p->y+mlx->p->dy*15,rgb_to_int(255,0,0));
 	cast_rays(mlx);
 	mlx_put_image_to_window(mlx->ptr, mlx->mlx_win,mlx->img , 0, 0);
 	return (0);

@@ -24,12 +24,19 @@
 #	include <stdio.h>
 # 	include <stdlib.h>
 #	include <unistd.h>
+#	include <limits.h>
 #	include <math.h>
 #	include "../mlx_linux/mlx.h"
 
+typedef struct s_point{
+	double x;
+	double y;
+	double dist2pl;
+}				t_point;
+
 typedef struct s_player{
-	int x;
-	int y;
+	double x;
+	double y;
 	float ang;
 	float dx;
 	float dy;

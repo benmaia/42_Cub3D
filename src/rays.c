@@ -4,6 +4,7 @@
 #define UP 1
 #define LEFT 2
 #define RIGHT 3
+#define RAY_NUM 60
 
 float normalize_ang(float angle)
 {
@@ -29,18 +30,27 @@ int leftorright(float ang)
 		return(LEFT);
 }
 
-void horizontalinter(t_mlx *m)
+double distancebetween(double x1, double y1, double x2, double y2)
 {
+	return(sqrt((x2-x1) * (x2-x1) + (y2-y1) * (y2-y1)));
+}
+
+t_point horizontalinter(t_mlx *m, double ang)
+{
+	t_point inter;
 	double xinter, yinter;
 	double xstep, ystep;
 	double xwall, ywall;
-	float r_angle = normalize_ang(m->p->ang);
+	
+	int hit = 0;
+
+	float r_angle = normalize_ang(ang);
 	int r_dir = upordown(r_angle);
 	int r_lor = leftorright(r_angle);
 	yinter = floor(m->p->y / TILES) * TILES;
 	if (r_dir)
 		yinter += TILES;
-	xinter = m->p->x + (yinter - m->p->y)/ - tan(r_angle);
+	xinter = m->p->x + (yinter - m->p->y)/ tan(r_angle);
 	ystep = TILES;
 	if (r_dir)
 		ystep *= -1;
@@ -55,9 +65,9 @@ void horizontalinter(t_mlx *m)
 	{
 		if (has_wall(nextx, nexty, m))
 		{
+			hit = 1;
 			xwall = nextx;
 			ywall = nexty;
-			mlx_line_to(m,m->p->x, m->p->y, xwall,ywall ,rgb_to_int(0,255,0));
 			break;
 		}
 		else {
@@ -65,15 +75,26 @@ void horizontalinter(t_mlx *m)
 			nexty += ystep;
 		}
 	}
+	inter.x = xwall;
+	inter.y = ywall;
+	if (hit)
+	{
+		inter.dist2pl = distancebetween(m->p->x, m->p->y, xwall, ywall);
+		return(inter);
+	}
+	inter.dist2pl = INT_MAX;
+	return(inter);
 }
 
-void verticalinter(t_mlx *m)
+t_point verticalinter(t_mlx *m, double ang)
 {
+	t_point inter;
 	double xinter, yinter;
 	double xstep, ystep;
 	double xwall, ywall;
+	int hit = 0;
 
-	float r_angle = normalize_ang(m->p->ang);
+	float r_angle = normalize_ang(ang);
 	int r_dir = upordown(r_angle);
 	int r_lor = leftorright(r_angle);
 
@@ -82,7 +103,7 @@ void verticalinter(t_mlx *m)
 	if (r_lor == RIGHT)
 		xinter += TILES;
 	//FIND Y-interseption
-	yinter = m->p->y + (xinter - m->p->x) * -tan(r_angle);
+	yinter = m->p->y + (xinter - m->p->x) * tan(r_angle);
 	//find STEPS
 	//xstep
 	xstep = TILES;
@@ -103,9 +124,9 @@ void verticalinter(t_mlx *m)
 	{
 		if (has_wall(nextx, nexty, m))
 		{
+			hit = 1; 
 			xwall = nextx;
 			ywall = nexty;
-			mlx_line_to(m,m->p->x, m->p->y, xwall,ywall ,rgb_to_int(0,255,0));
 			break;
 		}
 		else {
@@ -113,10 +134,34 @@ void verticalinter(t_mlx *m)
 			nexty += ystep;
 		}
 	}
+	inter.x = xwall;
+	inter.y = ywall;
+	if (hit)
+	{
+		inter.dist2pl = distancebetween(m->p->x, m->p->y, xwall, ywall);
+		return(inter);
+	}
+	inter.dist2pl = INT_MAX;
+	return(inter);
+}
+
+void calc_rays(t_mlx *m, double ang)
+{
+
+	t_point h_hit = horizontalinter(m, ang);
+	t_point v_hit = verticalinter(m, ang);
+	t_point closest = v_hit.dist2pl > h_hit.dist2pl ? h_hit : v_hit;
+	//while (i < 10)
+	mlx_line_to(m, m->p->x, m->p->y, closest.x, closest.y, rgb_to_int(255,0,0));
 }
 
 void cast_rays(t_mlx *m)
 {
-	horizontalinter(m);
-	verticalinter(m);
+	//int col;
+	double r_angle = normalize_ang(m->p->ang - (FOV / 2));
+	for(int i = 0; i < RAY_NUM; i++)
+	{
+		calc_rays(m, r_angle);
+		r_angle += FOV / RAY_NUM;
+	}
 }
