@@ -4,7 +4,7 @@
 #define UP 1
 #define LEFT 2
 #define RIGHT 3
-#define RAY_NUM 40
+#define RAY_NUM 140
 
 float normalize_ang(float angle)
 {
@@ -17,7 +17,7 @@ float normalize_ang(float angle)
 
 int upordown(float ang)
 {
-	if (ang >= 0 && ang < M_PI) 
+	if (ang >= 0 && ang <= M_PI) 
 		return(DOWN);
 	else
 		return UP;
@@ -25,7 +25,7 @@ int upordown(float ang)
 
 int leftorright(float ang)
 {
-	if (ang >= M_PI_2 && ang < (3 * M_PI_2))
+	if (ang >= M_PI_2 && ang <= (3 * M_PI_2))
 		return(LEFT);
 	else
 		return(RIGHT);
@@ -47,12 +47,12 @@ t_point horizontalinter(t_mlx *m, float ang)
 	int hit = 0;
 
 	float r_angle; 
-	r_angle = normalize_ang(ang);
+	r_angle = (ang);
 	int r_dir = upordown(r_angle);
 	int r_lor = leftorright(r_angle);
 
 	yinter = floor(m->p->y / TILES) * TILES;
-	if (r_dir == UP)
+	if (r_dir == DOWN)
 		yinter += TILES;
 	xinter = m->p->x + (yinter - m->p->y)/tan(r_angle);
 	ystep = TILES;
@@ -96,7 +96,8 @@ t_point verticalinter(t_mlx *m, float ang)
 	double xstep, ystep;
 	double xwall, ywall;
 	int hit = 0;
-
+	xwall = 0;
+	ywall = 0;
 	float r_angle = normalize_ang(ang);
 	int r_dir = upordown(r_angle);
 	int r_lor = leftorright(r_angle);
@@ -150,7 +151,7 @@ t_point verticalinter(t_mlx *m, float ang)
 
 void calc_rays(t_mlx *m, float ang)
 {
-
+	ang = normalize_ang(ang);
 	t_point h_hit = horizontalinter(m, ang);
 	t_point v_hit = verticalinter(m, ang);
 	t_point closest = v_hit.dist2pl > h_hit.dist2pl ? h_hit : v_hit;
@@ -159,16 +160,11 @@ void calc_rays(t_mlx *m, float ang)
 
 void cast_rays(t_mlx *m)
 {
-	//int col;
 	float r_angle = m->p->ang - (FOV / 2);
-	int r_dir = upordown(r_angle);
-	int r_lor = leftorright(r_angle);
-	printf("dir:%d\n", r_dir);
-	printf("lor:%d\n", r_lor);
 	for(int i = 0; i < RAY_NUM; i++)
 	{
 		calc_rays(m, r_angle);
 		r_angle += (FOV / RAY_NUM);
-		//printf("ang:%f\n", r_angle);
+		printf("ang%d:%f\n",i, r_angle);
 	}
 }

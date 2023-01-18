@@ -1,7 +1,7 @@
 NAME	:=	cub3d
 
 CC		:=	gcc
-CFLAGS	:= 	-O3 -g #-Wall -Wextra -Werror
+CFLAGS	:= 	-O3 -g -Wall -Wextra -Werror
 
 PATH_SRC		:=	./src
 PATH_INCLUDES	:=	./incs
