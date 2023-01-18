@@ -73,15 +73,15 @@ int	key_hook(int keycode,t_mlx *mlx)
 	{
 		mlx->p->ang -= 0.125;
 		if (mlx->p->ang <= 0)
-			mlx->p->ang += 2 * PI;
+			mlx->p->ang += 2 * M_PI;
 		mlx->p->dx = cos(mlx->p->ang) * 5;
 		mlx->p->dy = sin(mlx->p->ang) * 5;
 	}
 	if (keycode == D_KEY)
 	{
 		mlx->p->ang += 0.125;
-		if (mlx->p->ang > 2 * PI)
-			mlx->p->ang -= 2 * PI - 0.01;
+		if (mlx->p->ang > 2 * M_PI)
+			mlx->p->ang -= 2 * M_PI + 0.01;
 		mlx->p->dx = cos(mlx->p->ang) * 5;
 		mlx->p->dy = sin(mlx->p->ang) * 5;
 	}

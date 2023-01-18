@@ -18,8 +18,7 @@
 #	define SPEED 5
 #	define TILES 34
 
-#	define PI 3.14159
-#	define FOV PI / 3
+#	define FOV M_PI / 3
 
 #	include <stdio.h>
 # 	include <stdlib.h>
