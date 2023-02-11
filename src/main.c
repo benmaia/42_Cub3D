@@ -4,12 +4,15 @@ void display_grid(t_mlx *mlx);
 
 int	refresh_screen(t_mlx *mlx)
 {
+	mlx->img = mlx_new_image(mlx->ptr, mlx->win_x, mlx->win_y);
+	mlx->addr = mlx_get_data_addr(mlx->img, &mlx->bits_per_pixel,
+			&mlx->line_length, &mlx->endian);
 	mlx_clear_window(mlx->ptr, mlx->mlx_win);
-	displayMap(mlx);
-	display_grid(mlx);
-	mlx_square(mlx, mlx->p->x, mlx->p->y, 10, rgb_to_int(0,155,123));
+	//display_grid(mlx);
+	//mlx_square(mlx, mlx->p->x, mlx->p->y, 10, rgb_to_int(0,155,123));
 	cast_rays(mlx);
-	mlx_line_to(mlx, mlx->p->x, mlx->p->y, mlx->p->x + mlx->p->dx *15,mlx->p->y+mlx->p->dy*15,rgb_to_int(0,0,255));
+	//displayMap(mlx);
+	//mlx_line_to(mlx, mlx->p->x, mlx->p->y, mlx->p->x + mlx->p->dx + 2,mlx->p->y+mlx->p->dy + 2,rgb_to_int(0,0,255));
 	mlx_put_image_to_window(mlx->ptr, mlx->mlx_win,mlx->img , 0, 0);
 	return (0);
 }

@@ -17,8 +17,9 @@
 
 #	define SPEED 5
 #	define TILES 34
+# 	define WALL_HEIGHT 34
 
-#	define FOV M_PI_2
+#	define FOV M_PI / 3
 
 #	include <stdio.h>
 # 	include <stdlib.h>
@@ -31,6 +32,7 @@ typedef struct s_point{
 	double x;
 	double y;
 	double dist2pl;
+	int hit;
 }				t_point;
 
 typedef struct s_player{
@@ -77,5 +79,12 @@ int 	mouse_hook(int button, int x, int y, t_mlx *mlx);
 void 	mlx_line_to(t_mlx *mlx,int x1, int y1, int x2, int y2, int color);
 void 	cast_rays(t_mlx *m);
 int		has_wall(double x, double y, t_mlx *a);
+float	normalize_ang(float angle);
+int		upordown(float ang);
+int		leftorright(float ang);
+double	distancebetween(double x1, double y1, double x2, double y2);
+
+
+
 
 #	endif

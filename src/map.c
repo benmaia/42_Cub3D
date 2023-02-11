@@ -69,8 +69,8 @@ void mlx_square(t_mlx *mlx, int x, int y, int size, int color)
 
 void draw_map(t_mlx *mlx, int map[24][24])
 {
-  int square_height = HEIGHT / 24;
-  int square_widht =  WIDTH / 24;
+  int square_height = (HEIGHT / 24)/4;
+  int square_widht =  (WIDTH / 24)/4;
   for (int row = 0; row < 24; row++)
   {
     int col;

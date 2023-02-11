@@ -4,41 +4,12 @@
 #define UP 1
 #define LEFT 2
 #define RIGHT 3
-#define RAY_NUM 140
-
-float normalize_ang(float angle)
-{
-	if (angle >= (2 * M_PI))
-		angle -= (2 * M_PI);
-	if (angle < 0)
-		angle += (2 * M_PI);
-	return (angle);
-}
-
-int upordown(float ang)
-{
-	if (ang >= 0 && ang <= M_PI) 
-		return(DOWN);
-	else
-		return UP;
-}
-
-int leftorright(float ang)
-{
-	if (ang >= M_PI_2 && ang <= (3 * M_PI_2))
-		return(LEFT);
-	else
-		return(RIGHT);
-}
-
-double distancebetween(double x1, double y1, double x2, double y2)
-{
-	return(sqrt((x2-x1) * (x2-x1) + (y2-y1) * (y2-y1)));
-}
+#define RAY_NUM 816
 
 t_point horizontalinter(t_mlx *m, float ang)
 {
 	t_point inter;
+	inter.hit = 1;
 	double xinter, yinter;
 	double xstep, ystep;
 	double xwall, ywall;
@@ -92,6 +63,7 @@ t_point horizontalinter(t_mlx *m, float ang)
 t_point verticalinter(t_mlx *m, float ang)
 {
 	t_point inter;
+	inter.hit = 0;
 	double xinter, yinter;
 	double xstep, ystep;
 	double xwall, ywall;
@@ -149,22 +121,33 @@ t_point verticalinter(t_mlx *m, float ang)
 	return(inter);
 }
 
-void calc_rays(t_mlx *m, float ang)
+t_point calc_rays(t_mlx *m, float ang)
 {
 	ang = normalize_ang(ang);
 	t_point h_hit = horizontalinter(m, ang);
 	t_point v_hit = verticalinter(m, ang);
 	t_point closest = v_hit.dist2pl > h_hit.dist2pl ? h_hit : v_hit;
-	mlx_line_to(m, m->p->x, m->p->y, closest.x, closest.y, rgb_to_int(255,0,0));
+	return(closest);
 }
 
 void cast_rays(t_mlx *m)
 {
+
 	float r_angle = m->p->ang - (FOV / 2);
 	for(int i = 0; i < RAY_NUM; i++)
 	{
-		calc_rays(m, r_angle);
+		int color ;
+		t_point close = calc_rays(m, r_angle);
+		if (close.hit)
+			color = rgb_to_int(0,255,0);
+		else 
+			color = rgb_to_int(0,0,255);
+		int lineheigth = ((TILES * 5) / close.dist2pl) * 250; 
+    	int drawStart = -lineheigth / 2 + HEIGHT / 2;
+      	if(drawStart < 0)drawStart = 0;
+    	int drawEnd = lineheigth / 2 + HEIGHT / 2;
+      	if(drawEnd >= HEIGHT)drawEnd = HEIGHT - 1;
+		mlx_line_to(m, i,drawStart , i, drawEnd, color);
 		r_angle += (FOV / RAY_NUM);
-		printf("ang%d:%f\n",i, r_angle);
 	}
 }
