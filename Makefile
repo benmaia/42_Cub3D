@@ -14,6 +14,8 @@ SRCS			:=	$(PATH_SRC)/main.c \
 					$(PATH_SRC)/movement.c \
 					$(PATH_SRC)/rays.c \
 					$(PATH_SRC)/rayutils.c \
+					$(PATH_SRC)/horizontal_inter.c \
+					$(PATH_SRC)/vertical_inter.c \
 
 
 OBJ				:= $(subst .c,.o,$(subst $(PATH_SRC), $(PATH_OBJS), $(SRCS)))

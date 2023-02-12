@@ -69,17 +69,16 @@ void mlx_square(t_mlx *mlx, int x, int y, int size, int color)
 
 void draw_map(t_mlx *mlx, int map[24][24])
 {
-  int square_height = (HEIGHT / 24)/4;
-  int square_widht =  (WIDTH / 24)/4;
+  int square_height = (HEIGHT / 24 ) / 4;
   for (int row = 0; row < 24; row++)
   {
     int col;
     for (col = 0; col < 24; col++)
     {
       if (map[row][col] == 1)
-        mlx_square(mlx, col * square_widht, row * square_height, square_widht, 0x000000);
+        mlx_square(mlx, col * square_height, row * square_height, square_height, 0x000000);
       else if (map[row][col] == 0)
-        mlx_square(mlx, col * square_widht, row * square_height, square_widht, 0xFFFFFF);
+        mlx_square(mlx, col * square_height, row * square_height, square_height, 0xFFFFFF);
     }
   }
 }
@@ -113,6 +112,10 @@ void displayMap(t_mlx *mlx)
     {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
     };
     draw_map(mlx,map);
+	int pos_playerx = floor((mlx->p->x * 24) / 24) / 4  ;
+	int pos_playery = floor((mlx->p->y * 24) / 24) / 4 ;
+
+	mlx_square(mlx, pos_playerx, pos_playery , 3, 0x00FF11);
     mlx_put_image_to_window(mlx->ptr, mlx->mlx_win,mlx->img , 0, 0);
 }
 

@@ -10,6 +10,11 @@
 #	define	ON_MOUSEUP 5
 #	define	ON_KEYDOWN 2
 
+#	define DOWN 0
+#	define UP 1
+#	define LEFT 2
+#	define RIGHT 3
+
 # 	define WIDTH 816
 # 	define HEIGHT 816
 #	define MAP_HEIGHT 24
@@ -83,7 +88,9 @@ float	normalize_ang(float angle);
 int		upordown(float ang);
 int		leftorright(float ang);
 double	distancebetween(double x1, double y1, double x2, double y2);
-
+int		range(int val, int min, int max);
+t_point horizontalinter(t_mlx *m, float ang);
+t_point verticalinter(t_mlx *m, float ang);
 
 
 
