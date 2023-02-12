@@ -10,6 +10,12 @@ t_point calc_rays(t_mlx *m, float ang)
 	return(closest);
 }
 
+void render_floor(t_mlx *mlx,int i ,int end, int start)
+{
+	mlx_line_to(mlx, i, end, i, HEIGHT,0xA5332A2A );
+	mlx_line_to(mlx, i, start, i, 0,0x00FFFF);
+}
+
 void cast_rays(t_mlx *m)
 {
 	int i;
@@ -32,6 +38,7 @@ void cast_rays(t_mlx *m)
       	if(drawEnd >= HEIGHT)
 			drawEnd = HEIGHT - 1;
 		mlx_line_to(m, i,drawStart , i, drawEnd, color);
+		render_floor(m, i,drawEnd, drawStart);
 		r_angle += (FOV / WIDTH);
 	}
 }
