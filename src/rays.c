@@ -12,8 +12,10 @@ t_point calc_rays(t_mlx *m, float ang)
 
 void render_floor(t_mlx *mlx,int i ,int end, int start)
 {
-	mlx_line_to(mlx, i, end, i, HEIGHT,0xA5332A2A );
-	mlx_line_to(mlx, i, start, i, 0,0x00FFFF);
+	if (end != HEIGHT)
+		mlx_line_to(mlx, i, end, i, HEIGHT,0xA5332A2A );
+	if (start != 0)
+		mlx_line_to(mlx, i, start, i, 0,0x00FFFF);
 }
 
 void cast_rays(t_mlx *m)

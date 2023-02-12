@@ -116,7 +116,7 @@ void displayMap(t_mlx *mlx)
 	int pos_playery;
 	pos_playerx = floor((mlx->p->x * 24) / 24) / 4 * 0.92 ;
 	pos_playery = floor((mlx->p->y * 24) / 24) / 4 * 0.92 ;
-	mlx_square(mlx, pos_playerx , pos_playery , 4, 0x00FF11);
+	mlx_square(mlx, pos_playerx , pos_playery , 4, 0x00);
 	mlx_put_image_to_window(mlx->ptr, mlx->mlx_win,mlx->img , 0, 0);
 }
 

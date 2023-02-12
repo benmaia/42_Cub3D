@@ -65,13 +65,14 @@ int	key_hook(int keycode,t_mlx *mlx)
 		double npy = mlx->p->y + mlx->p->dy;
 		if (!has_wall(npx + 5, npy, mlx))
 		{
-			mlx->p->x += mlx->p->dx;
-			mlx->p->y += mlx->p->dy;
+			mlx->p->x += mlx->p->dx * 0.5;
+			mlx->p->y += mlx->p->dy * 0.5;
 		}
 	}
 	if (keycode == A_KEY)
 	{
-		mlx->p->ang -= 0.125;
+		
+		mlx->p->ang -= 0.05;
 		if (mlx->p->ang <= 0)
 			mlx->p->ang += 2 * M_PI;
 		mlx->p->dx = cos(mlx->p->ang) * 5;
@@ -79,13 +80,13 @@ int	key_hook(int keycode,t_mlx *mlx)
 	}
 	if (keycode == D_KEY)
 	{
-		mlx->p->ang += 0.125;
+		mlx->p->ang += 0.05;
 		if (mlx->p->ang > 2 * M_PI)
 			mlx->p->ang -= 2 * M_PI + 0.01;
 		mlx->p->dx = cos(mlx->p->ang) * 5;
 		mlx->p->dy = sin(mlx->p->ang) * 5;
 	}
-	if (keycode == S_KEY)
+	if (keycode == S_KEY)	
 	{
 		double npx = mlx->p->x - mlx->p->dx;
 		double npy = mlx->p->y - mlx->p->dy;
@@ -99,13 +100,23 @@ int	key_hook(int keycode,t_mlx *mlx)
 	return (0);
 }
 
-int mouse_hook(int button, int x, int y, t_mlx *mlx)
+int mouse_hook(int x, int y, t_mlx *mlx)
 {
+	(void)y;
 
-	if (button & 1)
+	double		rot_amt;
+
+	if (x - WIDTH / 2 > ((int)WIDTH / 50) || x - WIDTH / 2 < -((int)WIDTH / 50))
 	{
-		img_pix_put(mlx, x,y, rgb_to_int(255,255,255));
-		mlx_put_image_to_window(mlx->ptr, mlx->mlx_win, mlx->img, 0, 0);
+		rot_amt = 1 * MOUSE_SENSI * 0.015;
+		if (x - WIDTH / 2 < 0)
+			rot_amt = -rot_amt;
+		mlx->p->ang += (rot_amt * MOUSE_SENSI);
+		mlx->p->dx = cos(mlx->p->ang) * 5;
+		mlx->p->dy = sin(mlx->p->ang) * 5;
+		refresh_screen(mlx);
+		mlx_mouse_move(mlx->ptr, mlx->mlx_win ,WIDTH / 2, HEIGHT / 2);
+		return(0);
 	}
 	return(0);
 }
