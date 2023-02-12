@@ -29,7 +29,7 @@ void cast_rays(t_mlx *m)
 			color = 0x80FF0000;
 		else 
 			color = 0xFF00FF00;
-		float pjc = cos(normalize_ang(r_angle - m->p->ang)) * close.dist2pl;
+		float pjc = cos(normalize_ang(r_angle - m->p->ang)) * close.dist2pl * 2;
 		int lineheigth = (HEIGHT / pjc) * 60; 
     	int drawStart = -lineheigth / 2 + HEIGHT / 2;
       	if(drawStart < 0)

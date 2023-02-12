@@ -35,8 +35,8 @@ void display_grid(t_mlx *mlx)
 {
     int x, y;
     int color = rgb_to_int(0,0,0);
-    int cell_width = WIDTH / 24;
-    int cell_height = HEIGHT / 24;
+    int cell_width = (WIDTH / 24) / 4;
+    int cell_height =( HEIGHT / 24) / 4;
 
     for (y = 0; y < 24; y++)
     {
