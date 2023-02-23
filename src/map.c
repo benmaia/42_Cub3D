@@ -1,7 +1,7 @@
 #include "../incs/Cub3d.h"
 
 void	img_pix_put(t_mlx *img, int x, int y, int color);
-int draw_square(t_mlx *mlx, int z, int k, int size);
+int 	draw_square(t_mlx *mlx, int z, int k, int size);
 
 void mlx_line_to(t_mlx *mlx,int x1, int y1, int x2, int y2, int color)
 {
