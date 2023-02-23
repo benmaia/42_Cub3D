@@ -48,9 +48,10 @@ void init_libmlx(t_mlx *mlx)
 	mlx->img = mlx_new_image(mlx->ptr, mlx->win_x, mlx->win_y);
 	mlx->addr = mlx_get_data_addr(mlx->img, &mlx->bits_per_pixel,
 			&mlx->line_length, &mlx->endian);
-	//mlx_mouse_hook(mlx->mlx_win, mouse_hook, mlx);
 	mlx_hook(mlx->mlx_win, 6, (1L << 6), &mouse_hook, mlx);
 	mlx_hook(mlx->mlx_win, ON_KEYDOWN, (1L << 0), key_hook,mlx);
 	mlx_hook(mlx->mlx_win, 17, (1L << 17), ft_exit, mlx);
 	mlx_mouse_hide(mlx->ptr, mlx->mlx_win);
+	mlx->texture.img_ptr = mlx_xpm_file_to_image(mlx->ptr,"./assets/siding1.xpm", &mlx->texture.w, &mlx->texture.h);
+	mlx->texture.addr = mlx_get_data_addr(mlx->texture.img_ptr, &mlx->texture.bpp, &mlx->texture.line_len, &mlx->texture.endian);
 }

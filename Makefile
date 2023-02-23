@@ -48,8 +48,4 @@ fclean: clean
 		@printf "\033[38;5;1m[Cleaning Bin!]\033[0m\n"
 		@rm -rf $(PATH_BUILD) $(NAME)
 
-macos: $(OBJ)
-    @$(CC) $(OBJ) -Lmlx -lmlx -framework OpenGL -framework AppKit -o $(NAME)
-    @printf "\033[44m[$(NAME) BUILT FOR MACOS!]\033[0m\n"
-
 re: fclean all

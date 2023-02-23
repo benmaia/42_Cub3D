@@ -1,8 +1,0 @@
-{
-	"files.associations": {
-		"cub3d.h": "c",
-		"mlx.h": "c",
-		"random": "c"
-	},
-	"C_Cpp.errorSquiggles": "disabled"
-}

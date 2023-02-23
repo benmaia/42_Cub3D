@@ -33,12 +33,21 @@
 #	include <math.h>
 #	include "../mlx_linux/mlx.h"
 
+
+
 typedef struct s_point{
 	double x;
 	double y;
 	double dist2pl;
 	int hit;
 }				t_point;
+
+typedef struct	s_line
+{
+	t_point		start;
+	t_point		end;
+	int			color;
+}				t_line;
 
 typedef struct s_player{
 	double x;
@@ -49,6 +58,17 @@ typedef struct s_player{
 	float rx;
 	float ry;
 }				t_player;
+
+typedef struct s_image
+{
+	void		*img_ptr;
+	char		*addr;
+	int			h;
+	int			w;
+	int			bpp;
+	int			endian;
+	int			line_len;
+}		t_image;
 
 typedef struct	s_mlx {
 	void	*ptr;
@@ -63,7 +83,7 @@ typedef struct	s_mlx {
 	int		win_x;
 	int		win_y;
 	int 	**map;
-	int		texture;
+	t_image		texture;
 	t_player	*p;
 }				t_mlx;
 
