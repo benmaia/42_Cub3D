@@ -15,7 +15,7 @@ t_point calc_rays(t_mlx *m, float ang)
 void render_floor(t_mlx *mlx,int i ,int end, int start)
 {
 	if (end != HEIGHT)
-		mlx_line_to(mlx, i, end, i, HEIGHT,rgb_to_int(0,125,23) );
+		mlx_line_to(mlx, i, end, i, HEIGHT,rgb_to_int(123,125,123) );
 	if (start != 0)
 		mlx_line_to(mlx, i, start, i, 0,0x00FFFF);
 }
@@ -37,10 +37,6 @@ void cast_rays(t_mlx *m)
 	{
 		int tex_x;
 		t_point close = calc_rays(m, r_angle);
-		if (close.hit)
-            tex_x = (int)close.y % m->texture.w;
-        else
-            tex_x = (int)close.x % m->texture.w;
 		float pjc = cos(normalize_ang(r_angle - m->p->ang)) * close.dist2pl * 2;
 		int lineheigth = (HEIGHT / pjc) * 60; 
     	int drawStart = -lineheigth / 2 + HEIGHT / 2;
@@ -49,6 +45,10 @@ void cast_rays(t_mlx *m)
     	int drawEnd = lineheigth / 2 + HEIGHT / 2;
       	if(drawEnd >= HEIGHT)
 			drawEnd = HEIGHT - 1;
+		if (close.hit)
+            tex_x = (int)close.x % TILES;
+        else
+            tex_x = (int)close.y % TILES;
 		int y = drawStart;
         while (y < drawEnd)
         {
