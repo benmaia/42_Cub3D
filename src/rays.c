@@ -46,15 +46,15 @@ void cast_rays(t_mlx *m)
       	if(drawEnd >= HEIGHT)
 			drawEnd = HEIGHT - 1;
 		if (close.hit)
-            tex_x = (int)close.x % TILES;
+            tex_x = (int)close.x * m->texture.w / TILES % m->texture.w;
         else
-            tex_x = (int)close.y % TILES;
+            tex_x = (int)close.y * m->texture.h / TILES % m->texture.h;
 		int y = drawStart;
         while (y < drawEnd)
         {
-            // Calculate texture coordinate for current pixel
-            int tex_y = ((y - HEIGHT / 2 + lineheigth / 2) * m->texture.h) / lineheigth;
-            // Retrieve pixel value from texture image data
+            // Calculate texture coordinate for current pixel (W_H - vars->p_vec->line_height) / 2;
+			int tex_y = ((y - HEIGHT / 2 + lineheigth / 2) * m->texture.h) / lineheigth;            
+			// Retrieve pixel value from texture image data
             char *tex_ptr = m->texture.addr + (tex_y * m->texture.line_len + tex_x * (m->texture.bpp / 8));
             int color = *(int *)tex_ptr;
 		    put_pixel_img(m, i, y, color);

@@ -26,11 +26,11 @@
 
 #	define FOV M_PI / 3
 
+#	include <math.h>
 #	include <stdio.h>
 # 	include <stdlib.h>
 #	include <unistd.h>
 #	include <limits.h>
-#	include <math.h>
 #	include "../mlx_linux/mlx.h"
 
 
