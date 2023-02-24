@@ -1,5 +1,4 @@
 #include "../incs/Cub3d.h"
-
 void	img_pix_put(t_mlx *img, int x, int y, int color)
 {
 	char    *pixel;
@@ -52,6 +51,6 @@ void init_libmlx(t_mlx *mlx)
 	mlx_hook(mlx->mlx_win, ON_KEYDOWN, (1L << 0), key_hook,mlx);
 	mlx_hook(mlx->mlx_win, 17, (1L << 17), ft_exit, mlx);
 	mlx_mouse_hide(mlx->ptr, mlx->mlx_win);
-	mlx->texture.img_ptr = mlx_xpm_file_to_image(mlx->ptr,"./assets/siding4.xpm", &mlx->texture.w, &mlx->texture.h);
+	mlx->texture.img_ptr = mlx_xpm_file_to_image(mlx->ptr,"./assets/siding6.xpm", &mlx->texture.w, &mlx->texture.h);
 	mlx->texture.addr = mlx_get_data_addr(mlx->texture.img_ptr, &mlx->texture.bpp, &mlx->texture.line_len, &mlx->texture.endian);
 }

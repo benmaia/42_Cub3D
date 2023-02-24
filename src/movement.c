@@ -1,4 +1,5 @@
 #include "../incs/Cub3d.h"
+#include <math.h>
 
 unsigned int	ft_strlen(char const *str)
 {
@@ -59,7 +60,7 @@ int	key_hook(int keycode,t_mlx *mlx)
 {
 	if (keycode == 65307)
 		exit(0);
-	if (keycode == W_KEY)
+	if (keycode == W_KEY || keycode == UP_KEY )
 	{
 		double npx = mlx->p->x + mlx->p->dx;
 		double npy = mlx->p->y + mlx->p->dy;
@@ -69,7 +70,7 @@ int	key_hook(int keycode,t_mlx *mlx)
 			mlx->p->y += mlx->p->dy * 0.5;
 		}
 	}
-	if (keycode == A_KEY)
+	if (keycode == A_KEY || keycode == LEFT_KEY)
 	{
 		
 		mlx->p->ang -= 0.05;
@@ -78,7 +79,7 @@ int	key_hook(int keycode,t_mlx *mlx)
 		mlx->p->dx = cos(mlx->p->ang) * 5;
 		mlx->p->dy = sin(mlx->p->ang) * 5;
 	}
-	if (keycode == D_KEY)
+	if (keycode == D_KEY || keycode == RIGHT_KEY)
 	{
 		mlx->p->ang += 0.05;
 		if (mlx->p->ang > 2 * M_PI)
@@ -86,7 +87,7 @@ int	key_hook(int keycode,t_mlx *mlx)
 		mlx->p->dx = cos(mlx->p->ang) * 5;
 		mlx->p->dy = sin(mlx->p->ang) * 5;
 	}
-	if (keycode == S_KEY)	
+	if (keycode == S_KEY || keycode == DOWN_KEY)	
 	{
 		double npx = mlx->p->x - mlx->p->dx;
 		double npy = mlx->p->y - mlx->p->dy;
