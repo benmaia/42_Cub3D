@@ -1,7 +1,7 @@
 NAME	:=	cub3d
 CC = gcc
 
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -fsanitize=address -g
 
 #Dir of the libft
 
@@ -20,7 +20,7 @@ all: $(NAME)
 
 $(NAME): $(OBJS)
 	#@make -C $(LIBFT_DIR)
-	@$(CC) $(CFLAGS) -I./libft/ -o $(NAME) $(OBJS)
+	@$(CC) $(CFLAGS) -I. -o $(NAME) $(OBJS)
 
 #Compile with the flags
 
