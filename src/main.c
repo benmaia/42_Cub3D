@@ -5,8 +5,9 @@ int	refresh_screen(t_mlx *mlx)
 	mlx_clear_window(mlx->ptr, mlx->mlx_win);
 	cast_rays(mlx);
 	displayMap(mlx);
+	mlx_put_image_to_window(mlx->ptr, mlx->mlx_win, mlx->img , 0, 0);
+	render_gun(mlx);
 	mlx_do_sync(mlx->ptr);
-	mlx_put_image_to_window(mlx->ptr, mlx->mlx_win,mlx->img , 0, 0);
 	return (0);
 }
 
@@ -26,11 +27,7 @@ int	main(void)
 	t_mlx	mlx;
 	init_libmlx(&mlx);
 	mlx.p = init_player(mlx.p);
-	while(1)
-	{
-		refresh_screen(&mlx);
-		mlx_hook(mlx.mlx_win, ON_KEYDOWN, (1L << 0), key_hook,&mlx);
-		mlx_loop(mlx.ptr);
-	}
+	refresh_screen(&mlx);
+	mlx_loop(mlx.ptr);
 	return(1);
 }

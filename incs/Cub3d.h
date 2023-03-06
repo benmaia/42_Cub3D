@@ -88,6 +88,7 @@ typedef struct	s_mlx {
 	int		win_y;
 	int 	**map;
 	t_image		texture;
+	t_image		guntexture;
 	t_player	*p;
 }				t_mlx;
 
@@ -115,6 +116,7 @@ double	distancebetween(double x1, double y1, double x2, double y2);
 int		range(int val, int min, int max);
 t_point horizontalinter(t_mlx *m, float ang);
 t_point verticalinter(t_mlx *m, float ang);
+void render_gun(t_mlx *mlx);
 
 
 
