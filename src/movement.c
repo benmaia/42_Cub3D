@@ -59,7 +59,7 @@ int		has_wall(double x, double y, t_mlx *a)
 int	key_hook(int keycode,t_mlx *mlx)
 {
 	if (keycode == 65307)
-		exit(0);
+		ft_exit(mlx);
 	else if (keycode == W_KEY || keycode == UP_KEY )
 	{
 		double npx = mlx->p->x + mlx->p->dx * 0.5;
@@ -128,10 +128,9 @@ int mouse_hook(int x, int y, t_mlx *mlx)
 	(void)y;
 
 	double		rot_amt;
-
-	if (x - WIDTH / 2 > ((int)WIDTH / 50) || x - WIDTH / 2 < -((int)WIDTH / 50))
+	if (x - WIDTH / 2 > (WIDTH / 50) || x - WIDTH / 2 < -(WIDTH / 50))
 	{
-		rot_amt = 1 * MOUSE_SENSI * 0.015;
+		rot_amt = 0.0225;
 		if (x - WIDTH / 2 < 0)
 			rot_amt = -rot_amt;
 		mlx->p->ang += (rot_amt * MOUSE_SENSI);

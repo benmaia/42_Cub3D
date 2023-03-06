@@ -29,8 +29,9 @@
 # 	define WALL_HEIGHT 34
 
 #	define FOV M_PI / 3
-#define __USE_MISC
-#	include <math.h>
+
+#define _USE_MATH_DEFINES
+#include <math.h>
 #	include <stdio.h>
 # 	include <stdlib.h>
 #	include <unistd.h>
@@ -117,7 +118,7 @@ int		range(int val, int min, int max);
 t_point horizontalinter(t_mlx *m, float ang);
 t_point verticalinter(t_mlx *m, float ang);
 void render_gun(t_mlx *mlx);
-
+int	ft_exit(t_mlx *mlx);
 
 
 #	endif

@@ -16,7 +16,7 @@ t_player *init_player(t_player *player)
 	player = malloc(sizeof(t_player));
 	player->x = 100;
 	player->y = 100;
-	player->ang = 1.5;
+	player->ang = 0;
 	player->dx = cos(player->ang) * 5;
 	player->dy = sin(player->ang) * 5;
 	return(player);

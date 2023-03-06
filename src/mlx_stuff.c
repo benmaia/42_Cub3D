@@ -29,6 +29,10 @@ int	rgb_to_int(int r, int g, int b)
 int	ft_exit(t_mlx *mlx)
 {
 	(void)mlx;
+	mlx_destroy_image(mlx->ptr, mlx->img);
+	free(mlx->p);
+	free(mlx->guntexture.img_ptr);
+	free(mlx->texture.img_ptr);
 	exit(0);
 	return (0);
 }
