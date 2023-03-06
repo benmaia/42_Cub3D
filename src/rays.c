@@ -52,7 +52,7 @@ void cast_rays(t_mlx *m)
 		int y = drawStart;
         while (y < drawEnd)
         {
-            // Calculate texture coordinate for current pixel (W_H - vars->p_vec->line_height) / 2;
+            // Calculate texture coordinate for current pixel (HEIGHT - line_height) / 2;
 			int tex_y = ((y - HEIGHT / 2 + lineheigth / 2) * m->texture.h) / lineheigth;            
 			// Retrieve pixel value from texture image data
             char *tex_ptr = m->texture.addr + (tex_y * m->texture.line_len + tex_x * (m->texture.bpp / 8));

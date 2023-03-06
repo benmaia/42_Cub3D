@@ -28,10 +28,10 @@ int		has_wall(double x, double y, t_mlx *a)
     {1,0,0,0,0,0,1,1,0,1,1,0,0,0,0,1,0,1,0,1,0,0,0,1},
     {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
     {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-    {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-    {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-    {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-    {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+    {1,0,0,0,0,0,0,0,0,0,1,1,1,1,0,0,0,0,0,0,0,0,0,1},
+    {1,0,0,0,0,0,0,0,0,0,1,' ',' ',1,0,0,0,0,0,0,0,0,0,1},
+    {1,0,0,0,0,0,0,0,0,0,1,' ',' ',1,0,0,0,0,0,0,0,0,0,1},
+    {1,0,0,0,0,0,0,0,0,0,1,1,1,1,0,0,0,0,0,0,0,0,0,1},
     {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
     {1,0,0,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
     {1,0,0,1,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,1,0,0,1},
@@ -60,17 +60,17 @@ int	key_hook(int keycode,t_mlx *mlx)
 {
 	if (keycode == 65307)
 		exit(0);
-	if (keycode == W_KEY || keycode == UP_KEY )
+	else if (keycode == W_KEY || keycode == UP_KEY )
 	{
-		double npx = mlx->p->x + mlx->p->dx;
-		double npy = mlx->p->y + mlx->p->dy;
-		if (!has_wall(npx + 5, npy, mlx))
+		double npx = mlx->p->x + mlx->p->dx * 0.5;
+		double npy = mlx->p->y + mlx->p->dy * 0.5;
+		if (!has_wall(npx, npy, mlx))
 		{
 			mlx->p->x += mlx->p->dx * 0.5;
 			mlx->p->y += mlx->p->dy * 0.5;
 		}
 	}
-	if (keycode == A_KEY || keycode == LEFT_KEY)
+	else if (keycode == LEFT_KEY)
 	{
 		
 		mlx->p->ang -= 0.05;
@@ -79,7 +79,7 @@ int	key_hook(int keycode,t_mlx *mlx)
 		mlx->p->dx = cos(mlx->p->ang) * 5;
 		mlx->p->dy = sin(mlx->p->ang) * 5;
 	}
-	if (keycode == D_KEY || keycode == RIGHT_KEY)
+	else if (keycode == RIGHT_KEY)
 	{
 		mlx->p->ang += 0.05;
 		if (mlx->p->ang > 2 * M_PI)
@@ -87,14 +87,36 @@ int	key_hook(int keycode,t_mlx *mlx)
 		mlx->p->dx = cos(mlx->p->ang) * 5;
 		mlx->p->dy = sin(mlx->p->ang) * 5;
 	}
-	if (keycode == S_KEY || keycode == DOWN_KEY)	
+	else if (keycode == D_KEY)
 	{
-		double npx = mlx->p->x - mlx->p->dx;
-		double npy = mlx->p->y - mlx->p->dy;
-		if (!has_wall(npx, npy + 5, mlx))
+		double angle = mlx->p->ang + M_PI_2;
+		double npx = mlx->p->x + cos(angle) * 2;
+		double npy = mlx->p->y + sin(angle) * 2;
+		if (!has_wall(npx, npy, mlx))
 		{
-			mlx->p->x -= mlx->p->dx;
-			mlx->p->y -= mlx->p->dy;
+			mlx->p->x += cos(angle) * 2;
+			mlx->p->y += sin(angle) * 2;
+		}
+	}
+	else if (keycode == A_KEY)
+	{
+		double angle = mlx->p->ang - M_PI_2;
+		double npx = mlx->p->x + cos(angle) * 2;
+		double npy = mlx->p->y + sin(angle) * 2;
+		if (!has_wall(npx, npy, mlx))
+		{
+			mlx->p->x += cos(angle) * 2;
+			mlx->p->y += sin(angle) * 2;
+		}
+	}
+	else if (keycode == S_KEY || keycode == DOWN_KEY)	
+	{
+		double npx = mlx->p->x - mlx->p->dx * 0.5;
+		double npy = mlx->p->y - mlx->p->dy * 0.5;
+		if (!has_wall(npx, npy, mlx))
+		{
+			mlx->p->x -= mlx->p->dx * 0.5;
+			mlx->p->y -= mlx->p->dy * 0.5;
 		}
 	}
 	refresh_screen(mlx);

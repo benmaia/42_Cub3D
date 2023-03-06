@@ -29,7 +29,7 @@
 # 	define WALL_HEIGHT 34
 
 #	define FOV M_PI / 3
-
+#define __USE_MISC
 #	include <math.h>
 #	include <stdio.h>
 # 	include <stdlib.h>
