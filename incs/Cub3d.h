@@ -43,6 +43,8 @@ typedef struct s_map{
 	char	**map;
 	int	height;
 	int	width;
+	int p_x;
+	int p_y;
 	int players;
 } t_map;
 

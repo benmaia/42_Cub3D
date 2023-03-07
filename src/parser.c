@@ -6,7 +6,7 @@
 /*   By: bmiguel- <bmiguel-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 18:44:30 by bmiguel-          #+#    #+#             */
-/*   Updated: 2023/03/07 20:03:30 by bmiguel-         ###   ########.fr       */
+/*   Updated: 2023/03/07 20:47:27 by bmiguel-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,8 +79,8 @@ bool	check_map_playble(t_mlx *g)
 			if (g->m->map[i][j] == 'N' || g->m->map[i][j] == 'S' || g->m->map[i][j] == 'W' || g->m->map[i][j] == 'E')
 			{
 				g->m->orientation = g->m->map[i][j];
-				g->p->x = i;
-				g->p->y = j;
+				g->m->p_x = i;
+				g->m->p_y = j;
 				g->m->players++;
 			}
 		}
