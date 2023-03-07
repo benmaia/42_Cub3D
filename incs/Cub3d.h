@@ -21,8 +21,6 @@
 
 # 	define WIDTH 816
 # 	define HEIGHT 816
-#	define MAP_HEIGHT 24
-#	define MAP_WIDTH 24
 
 #	define SPEED 5
 #	define TILES 34
@@ -30,8 +28,7 @@
 
 #	define FOV M_PI / 3
 
-#define _USE_MATH_DEFINES
-#include <math.h>
+#	include <math.h>
 #	include <stdio.h>
 # 	include <stdlib.h>
 #	include <unistd.h>

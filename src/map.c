@@ -86,7 +86,7 @@ void draw_map(t_mlx *mlx, int map[24][24])
 
 void displayMap(t_mlx *mlx)
 {
-	int map[MAP_WIDTH][MAP_HEIGHT]=
+	int map[24][24]=
     {
     {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
     {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
