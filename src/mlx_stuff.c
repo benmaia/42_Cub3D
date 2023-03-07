@@ -28,11 +28,10 @@ int	rgb_to_int(int r, int g, int b)
 
 int	ft_exit(t_mlx *mlx)
 {
-	(void)mlx;
 	mlx_destroy_image(mlx->ptr, mlx->img);
+	mlx_destroy_image(mlx->ptr, mlx->guntexture.img_ptr);
+	mlx_destroy_image(mlx->ptr, mlx->texture.img_ptr);
 	free(mlx->p);
-	free(mlx->guntexture.img_ptr);
-	free(mlx->texture.img_ptr);
 	exit(0);
 	return (0);
 }
@@ -41,11 +40,9 @@ int	ft_exit(t_mlx *mlx)
 
 void init_libmlx(t_mlx *mlx)
 {
+	mlx->ptr = mlx_init();
 	mlx->win_x = WIDTH;
 	mlx->win_y = HEIGHT;
-	mlx->squarex =	WIDTH / 2;
-	mlx->squarey = HEIGHT / 2;
-	mlx->ptr = mlx_init();
 	mlx->mlx_win = mlx_new_window(mlx->ptr, mlx->win_x,
 			mlx->win_y, "Cub3D");
 	mlx->img = mlx_new_image(mlx->ptr, mlx->win_x, mlx->win_y);
@@ -57,6 +54,6 @@ void init_libmlx(t_mlx *mlx)
 	mlx_mouse_hide(mlx->ptr, mlx->mlx_win);
 	mlx->texture.img_ptr = mlx_xpm_file_to_image(mlx->ptr,"./assets/siding4.xpm", &mlx->texture.w, &mlx->texture.h);
 	mlx->texture.addr = mlx_get_data_addr(mlx->texture.img_ptr, &mlx->texture.bpp, &mlx->texture.line_len, &mlx->texture.endian);
-	mlx->guntexture.img_ptr = mlx_xpm_file_to_image(mlx->ptr,"./assets/gun.xpm", &mlx->guntexture.w, &mlx->guntexture.h);
+	mlx->guntexture.img_ptr = mlx_xpm_file_to_image(mlx->ptr,"./assets/gun0.xpm", &mlx->guntexture.w, &mlx->guntexture.h);
 	mlx->guntexture.addr = mlx_get_data_addr(mlx->guntexture.img_ptr, &mlx->guntexture.bpp, &mlx->guntexture.line_len, &mlx->guntexture.endian);
 }
