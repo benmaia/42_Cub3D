@@ -19,6 +19,10 @@ SRCS			:=	$(PATH_SRC)/main.c \
 					$(PATH_SRC)/horizontal_inter.c \
 					$(PATH_SRC)/vertical_inter.c \
 					$(PATH_SRC)/gun.c \
+					$(PATH_SRC)/gnl.c \
+					$(PATH_SRC)/utils.c \
+					$(PATH_SRC)/utils2.c \
+					$(PATH_SRC)/parser.c \
 
 
 OBJ				:= $(subst .c,.o,$(subst $(PATH_SRC), $(PATH_OBJS), $(SRCS)))
