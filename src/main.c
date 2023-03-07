@@ -24,6 +24,8 @@ t_player *init_player(t_player *player)
 
 int	main(int argc, char **argv)
 {
+	(void)argc;
+	(void)argv;
 	t_mlx	mlx;
 	init_libmlx(&mlx);
 	mlx.p = init_player(mlx.p);

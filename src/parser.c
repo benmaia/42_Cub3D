@@ -6,7 +6,7 @@
 /*   By: bmiguel- <bmiguel-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 18:44:30 by bmiguel-          #+#    #+#             */
-/*   Updated: 2023/03/07 18:59:43 by bmiguel-         ###   ########.fr       */
+/*   Updated: 2023/03/07 20:03:30 by bmiguel-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,13 +95,14 @@ bool	check_map_playble(t_mlx *g)
 void	map_parser(int argc, char **argv, t_mlx *g)
 {
 	g->m = malloc(sizeof(t_map));
+	g->m->players = 0;
 	if (is_file_valid(argc, argv, g) == false)
 	{
 		printf("\nPlease select a valid file, only .cub files are accepted\n");
 		exit(1);
 	}
 	read_map(g);
-	if (check_map_playble(g) || g->m->players != 1)
+	if (!check_map_playble(g) || g->m->players != 1)
 		exit(1);
 
 }
