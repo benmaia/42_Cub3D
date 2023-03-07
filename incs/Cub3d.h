@@ -30,12 +30,20 @@
 
 #	include <math.h>
 #	include <stdio.h>
-# 	include <stdlib.h>
+#	include <stdlib.h>
 #	include <unistd.h>
 #	include <limits.h>
+#	include <fcntl.h>
+#	include <stdbool.h> 
 #	include "../mlx_linux/mlx.h"
 
-
+typedef struct s_map{
+	char orientation;
+	int fd;
+	char	**map;
+	int	height;
+	int	width;
+} t_map;
 
 typedef struct s_point{
 	double x;
@@ -88,6 +96,7 @@ typedef struct	s_mlx {
 	t_image		texture;
 	t_image		guntexture;
 	t_player	*p;
+	t_map	*m;
 }				t_mlx;
 
 typedef struct s_data
@@ -117,5 +126,18 @@ t_point verticalinter(t_mlx *m, float ang);
 void render_gun(t_mlx *mlx);
 int	ft_exit(t_mlx *mlx);
 
+/*############## UTILS ###############*/
+
+
+unsigned	int ft_strlen(const char *str);
+char	*ft_substr(char const *s, unsigned int start, size_t len);
+int	ft_strcmp(const char *s1, const char *s2);
+char	*ft_strdup(const char *str);
+char	*ft_strjoin(char const *s1, char const *s2);
+char	*get_next_line(int fd);
+char	**ft_split(char const *s, char c);
+
+/*/############ PARSER #############*/
+void	map_parser(int argc, char **argv, t_mlx *g);
 
 #	endif

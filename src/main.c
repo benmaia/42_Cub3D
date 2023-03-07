@@ -22,11 +22,12 @@ t_player *init_player(t_player *player)
 	return(player);
 }
 
-int	main(void)
+int	main(int argc, char **argv)
 {
 	t_mlx	mlx;
 	init_libmlx(&mlx);
 	mlx.p = init_player(mlx.p);
+	map_parser(argc, argv, &mlx);
 	refresh_screen(&mlx);
 	mlx_loop(mlx.ptr);
 	return(1);
