@@ -305,7 +305,7 @@ bool	check_map_playble(t_global *g)
 {
 	int			i;
 	int			j;
-	static int	p;
+	static int	p = 0;
 
 	i = -1;
 	while (g->map->map[++i])
@@ -321,7 +321,7 @@ bool	check_map_playble(t_global *g)
 			}
 		}
 	}
-	if (p >= 2)
+	if (p != 1)
 	{
 		printf("To many start positions\n");
 		return false;
@@ -344,17 +344,17 @@ void	map_parser(int argc, char **argv, t_global *g)
 
 int main(int argc, char **argv)
 {
-	t_global *g;
+	t_global g;
 	int i = -1;
 	
-	g = malloc(sizeof(t_global));
-	/*g->map = malloc(sizeof(t_map));*/
-	/*g->player = malloc(sizeof(t_player));*/
-	map_parser(argc, argv, g);
+	g.map = malloc(sizeof(t_map));
+	g.player = malloc(sizeof(t_player));
+	printf("start\n");
+	map_parser(argc, argv, &g);
 
 
-	while (g->map->map[++i])
-		printf("%s\n", g->map->map[i]);
-	printf("Player position x = %d, y = %d\n", g->player->x, g->player->y);
+	while (g.map->map[++i])
+		printf("Mapa %s\n", g.map->map[i]);
+	printf("Player position x = %d, y = %d\n", g.player->x, g.player->y);
 	return 0;
 }
