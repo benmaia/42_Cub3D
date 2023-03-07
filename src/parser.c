@@ -6,7 +6,7 @@
 /*   By: bmiguel- <bmiguel-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 18:44:30 by bmiguel-          #+#    #+#             */
-/*   Updated: 2023/03/07 18:46:22 by bmiguel-         ###   ########.fr       */
+/*   Updated: 2023/03/07 18:59:43 by bmiguel-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,6 @@ bool	check_map_playble(t_mlx *g)
 {
 	int			i;
 	int			j;
-	static int	p = 0;
 
 	i = -1;
 	while (g->m->map[++i])
@@ -79,17 +78,17 @@ bool	check_map_playble(t_mlx *g)
 		{
 			if (g->m->map[i][j] == 'N' || g->m->map[i][j] == 'S' || g->m->map[i][j] == 'W' || g->m->map[i][j] == 'E')
 			{
-				p++;
+				g->m->orientation = g->m->map[i][j];
 				g->p->x = i;
 				g->p->y = j;
+				g->m->players++;
 			}
 		}
+		if (j > g->m->width)
+			g->m->width = j;
 	}
-	if (p != 1)
-	{
-		printf("To many start positions\n");
-		return false;
-	}
+	if (i > g->m->height)
+		g->m->height = i;
 	return true;
 }
 
@@ -102,7 +101,7 @@ void	map_parser(int argc, char **argv, t_mlx *g)
 		exit(1);
 	}
 	read_map(g);
-	if (check_map_playble(g))
+	if (check_map_playble(g) || g->m->players != 1)
 		exit(1);
 
 }
