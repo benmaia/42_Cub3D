@@ -248,27 +248,14 @@ char	**ft_split(char const *s, char c)
 
 
 
-int	open_map(char **argv)
-{
-	int		fd;
-
-	fd = open(argv[1], O_RDONLY);
-	if ((fd) == -1)
-	{
-		printf("file opening failed\n");
-		exit(EXIT_FAILURE);
-	}
-	return (fd);
-}
-
-void	read_map(t_map *map)
+void	read_map(t_global *g)
 {
 	char	*str;
 	char	*buf;
 	char	*tmp;
 
 	str = ft_strdup("");
-	buf = get_next_line(map->fd);
+	buf = get_next_line(g->map->fd);
 	while (buf != NULL)
 	{
 		if (!ft_strcmp(buf, "\n"))
@@ -280,9 +267,9 @@ void	read_map(t_map *map)
 		free(str);
 		str = tmp;
 		free(buf);
-		buf = get_next_line(map->fd);
+		buf = get_next_line(g->map->fd);
 	}
-	map->map = ft_split(str, '\n');
+	g->map->map = ft_split(str, '\n');
 	free(str);
 	str = NULL;
 	free(buf);
@@ -290,7 +277,7 @@ void	read_map(t_map *map)
 }
 
 
-bool	is_file_valid(int argc, char **argv, t_map *map)
+bool	is_file_valid(int argc, char **argv, t_global *g)
 {
 	char *file_type;
 	int i;
@@ -308,60 +295,66 @@ bool	is_file_valid(int argc, char **argv, t_map *map)
 				(argv[argc -1][i] <= 32 && argv[argc - 1][i] >= 127))
 			return false;
 	}
-	map->fd = open(argv[1], O_RDONLY);
-	if (map->fd == -1 || ft_strcmp(file_type, ".cub"))
+	g->map->fd = open(argv[1], O_RDONLY);
+	if (g->map->fd == -1 || ft_strcmp(file_type, ".cub"))
 		return false;
 	return true;
 }
 
-bool is_map_open(t_map *map)
+bool	check_map_playble(t_global *g)
 {
-	int x;
-	int y;
+	int			i;
+	int			j;
+	static int	p;
 
-	x = 0;
-	y =0;
-	while (map->map[x++])
+	i = -1;
+	while (g->map->map[++i])
 	{
-		while(map->map[x][y++])
+		j = -1;
+		while (g->map->map[i][++j])
 		{
-			if (map->map[0][y] == '1')
+			if (g->map->map[i][j] == 'N' || g->map->map[i][j] == 'S' || g->map->map[i][j] == 'W' || g->map->map[i][j] == 'E')
 			{
-				if (map->map[0][y + 1] && map->map[0][y + 1] == 0)
-				{
-					exit(1);
-				}
+				p++;
+				g->player->x = i;
+				g->player->y = j;
 			}
 		}
+	}
+	if (p >= 2)
+	{
+		printf("To many start positions\n");
+		return false;
 	}
 	return true;
 }
 
-void	map_parser(int argc, char **argv, t_map *map)
+void	map_parser(int argc, char **argv, t_global *g)
 {
-	if (is_file_valid(argc, argv, map) == false)
+	if (is_file_valid(argc, argv, g) == false)
 	{
 		printf("\nPlease select a valid file, only .cub files are accepted\n");
 		exit(1);
 	}
-	read_map(map);
-	if (is_map_open(map))
-	{
-		printf("no\n");
+	read_map(g);
+	if (check_map_playble(g))
 		exit(1);
-	}
+
 }
 
 int main(int argc, char **argv)
 {
-	t_map *map;
+	t_global *g;
 	int i = -1;
 	
-	map = malloc(sizeof(t_map));
-	map_parser(argc, argv, map);
+	g = malloc(sizeof(t_global));
+	/*g->map = malloc(sizeof(t_map));*/
+	/*g->player = malloc(sizeof(t_player));*/
+	map_parser(argc, argv, g);
 
 
-	while(map->map[++i])
-		printf("%s\n", map->map[i]);
+	while (g->map->map[++i])
+		printf("%s\n", g->map->map[i]);
+	printf("Player position x = %d, y = %d\n", g->player->x, g->player->y);
 	return 0;
 }
