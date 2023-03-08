@@ -19,8 +19,8 @@
 #	define LEFT 2
 #	define RIGHT 3
 
-# 	define WIDTH 816
-# 	define HEIGHT 816
+# 	define WIDTH 920
+# 	define HEIGHT 920
 
 #	define SPEED 5
 #	define TILES 34
