@@ -41,7 +41,7 @@ int	ft_exit(t_mlx *mlx)
 void init_libmlx(t_mlx *mlx)
 {
 	mlx->ptr = mlx_init();
-	mlx->win_x = WIDTH;
+	mlx->win_x = WIDTH ;
 	mlx->win_y = HEIGHT;
 	mlx->mlx_win = mlx_new_window(mlx->ptr, mlx->win_x,
 			mlx->win_y, "Cub3D");

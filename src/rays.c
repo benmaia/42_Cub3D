@@ -1,6 +1,5 @@
 #include "../incs/Cub3d.h"
 
-
 t_point calc_rays(t_mlx *m, float ang)
 {
 	ang = normalize_ang(ang);

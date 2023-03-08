@@ -33,9 +33,10 @@ t_point verticalinter(t_mlx *m, float ang)
 	// next intersection
 	double nextx = xinter; 
 	double nexty = yinter;
+	int dof = 0;
 	//make sure that mf hits a wall
 	// loop untill it finds a wall or leaves canvas, increments with x and y step
-	while (nextx >= 0 && nextx <= WIDTH && nexty >= 0 && nexty <= HEIGHT)
+	while (nextx >= 0 && nexty >= 0 && dof < INT_MAX)
 	{
 		if (has_wall(nextx - (r_lor == LEFT ? 1 : 0) , nexty, m))
 		{
@@ -46,13 +47,13 @@ t_point verticalinter(t_mlx *m, float ang)
 		}
 		else 
 		{
+			dof++;
 			nextx += xstep;
 			nexty += ystep;
 		}
 	}
 	inter.x = xwall;
 	inter.y = ywall;
-
 	if (hit)
 	{
 		inter.dist2pl = distancebetween(m->p->x, m->p->y, xwall, ywall);

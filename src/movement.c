@@ -11,20 +11,18 @@ unsigned int	ft_strlen(char const *str)
 	return (i);
 }
 
-
 int		has_wall(double x, double y, t_mlx *mlx)
 {
 	int		mapgridx;
 	int		mapgridy;
-	if ((int)x < 0 || (int)x > WIDTH ||
-	(int)y < 0 || (int)y > HEIGHT)
+	if ((int)x < 0 || (int)y < 0)
 		return (1);
 	mapgridx = floor(x/ TILES);
 	mapgridy = floor(y / TILES);
-	if (mapgridx >= mlx->m->width || mapgridx >= mlx->m->height)
+	if (mapgridx >= mlx->m->width || mapgridy >= mlx->m->height)
 		return (2);
-	if (mlx->m->map[mapgridy][mapgridx] == '1')
-		return (3);
+	else if (mlx->m->map[mapgridy][mapgridx] == '1')
+		return (1);
 	return (0);
 }
 

@@ -19,12 +19,11 @@
 #	define LEFT 2
 #	define RIGHT 3
 
-# 	define WIDTH 816
-# 	define HEIGHT 816
+# 	define WIDTH 920
+# 	define HEIGHT 920
 
 #	define SPEED 5
 #	define TILES 34
-# 	define WALL_HEIGHT 34
 
 #	define FOV M_PI / 3
 
@@ -109,6 +108,7 @@ typedef struct s_data
 
 
 void 	init_libmlx(t_mlx *mlx);
+t_player *init_player(t_player *player, t_map *map);
 int		refresh_screen(t_mlx *mlx);
 void	img_pix_put(t_mlx *img, int x, int y, int color);
 int		rgb_to_int(int r, int g, int b);
