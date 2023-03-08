@@ -18,8 +18,8 @@ t_player *init_player(t_player *player, t_map *map)
 	player = malloc(sizeof(t_player));
 	printf("%d\n", map->width);
 	printf("%d\n", map->height);
-	player->x = 100;
-	player->y = 200;
+	player->x = map->p_y * TILES + TILES / 2;
+	player->y = map->p_x * TILES + TILES / 2;
 	player->ang = 0;
 	player->dx = cos(player->ang) * 5;
 	player->dy = sin(player->ang) * 5;
