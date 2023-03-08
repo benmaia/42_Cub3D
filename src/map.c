@@ -36,12 +36,12 @@ void display_grid(t_mlx *mlx)
 {
     int x, y;
     int color = rgb_to_int(0,0,0);
-    int cell_width = (WIDTH / 24) / 4;
-    int cell_height =( HEIGHT / 24) / 4;
+    int cell_width = (WIDTH / mlx->m->width) ;
+    int cell_height =( HEIGHT / mlx->m->height);
 
-    for (y = 0; y < 24; y++)
+    for (y = 0; y < mlx->m->height; y++)
     {
-        for (x = 0; x < 24; x++)
+        for (x = 0; x < mlx->m->width; x++)
         {
             mlx_line_to(mlx, x * cell_width, y * cell_height, (x+1) * cell_width, y * cell_height, color);
             mlx_line_to(mlx, x * cell_width, (y+1) * cell_height, (x+1) * cell_width, (y+1) * cell_height, color);
@@ -68,58 +68,35 @@ void mlx_square(t_mlx *mlx, int x, int y, int size, int color)
     }
 }
 
-void draw_map(t_mlx *mlx, int map[24][24])
+void draw_map(t_mlx *mlx) 
 {
-  int square_height = (HEIGHT / 24 ) / 4;
-  for (int row = 0; row < 24; row++)
-  {
-    int col;
-    for (col = 0; col < 24; col++)
-    {
-      if (map[row][col] == 1)
-        mlx_square(mlx, col * square_height, row * square_height, square_height, 0x000000);
-      else
-        mlx_square(mlx, col * square_height, row * square_height, square_height, 0xFFFFFF);
+ 	int square_size = WIDTH /mlx->m->width /2 ;
+  
+  	for (int row = 0; row < mlx->m->height; row++) 
+  	{
+        for (int col = 0; col < mlx->m->width; col++) {
+        int x = col * square_size;
+        int y = row * square_size;
+        if (mlx->m->map[row][col] == '1') 
+            mlx_square(mlx, x, y, square_size, 0x000000);
+        else if (mlx->m->map[row][col] == '0')
+            mlx_square(mlx, x, y, square_size, 0xFFFFFF);
+        else if (mlx->m->map[row][col] == '0')
+            mlx_square(mlx, x, y, square_size, 0xDDFF00);    
+        else
+            mlx_square(mlx, x, y, square_size, 0x00EFEF);
     }
   }
 }
 
 void displayMap(t_mlx *mlx)
 {
-	int map[24][24]=
-    {
-    {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
-    {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-    {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-    {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-    {1,0,0,0,0,0,1,1,1,1,1,0,0,0,0,1,0,1,0,1,0,0,0,1},
-    {1,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1},
-    {1,0,0,0,0,0,1,0,0,0,1,0,0,0,1,1,0,0,0,0,0,0,0,1},
-    {1,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1},
-    {1,0,0,0,0,0,1,1,0,1,1,0,0,0,0,1,0,1,0,1,0,0,0,1},
-    {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-    {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-    {1,0,0,0,0,0,0,0,0,0,1,1,1,1,0,0,0,0,0,0,0,0,0,1},
-    {1,0,0,0,0,0,0,0,0,0,1,2,2,1,0,0,0,0,0,0,0,0,0,1},
-    {1,0,0,0,0,0,0,0,0,0,1,2,2,1,0,0,0,0,0,0,0,0,0,1},
-    {1,0,0,0,0,0,0,0,0,0,1,1,1,1,0,0,0,0,0,0,0,0,0,1},
-    {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-    {1,0,0,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-    {1,0,0,1,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,1,0,0,1},
-    {1,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-    {1,0,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-    {1,0,0,1,1,1,1,1,1,0,0,0,0,0,0,1,0,0,0,0,1,0,0,1},
-    {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,0,0,1},
-    {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-    {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
-    };
-    draw_map(mlx,map);
+    draw_map(mlx);
 	int pos_playerx;
 	int pos_playery;
-	pos_playerx = floor((mlx->p->x * 24) / 24) / 4 * 0.92 ;
-	pos_playery = floor((mlx->p->y * 24) / 24) / 4 * 0.92 ;
+	pos_playerx = floor((mlx->p->x * mlx->m->width) / mlx->m->width) /2 ;
+	pos_playery = floor((mlx->p->y * mlx->m->height) / mlx->m->height) /2 ;
 	mlx_square(mlx, pos_playerx , pos_playery , 4, 0x00);
 	mlx_line_to(mlx, pos_playerx,pos_playery, pos_playerx + mlx->p->dx * 5, pos_playery + mlx->p->dy * 5, rgb_to_int(255,123,11));
 	mlx_put_image_to_window(mlx->ptr, mlx->mlx_win,mlx->img , 0, 0);
 }
-
