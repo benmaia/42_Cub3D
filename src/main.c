@@ -8,7 +8,7 @@ int	refresh_screen(t_mlx *mlx)
 	cast_rays(mlx);
 	displayMap(mlx);
 	mlx_put_image_to_window(mlx->ptr, mlx->mlx_win, mlx->img , 0, 0);
-	//render_gun(mlx);
+	render_gun(mlx);
 	mlx_do_sync(mlx->ptr);
 	return (0);
 }

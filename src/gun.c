@@ -15,7 +15,7 @@ void render_gun(t_mlx *mlx)
         while (x < mlx->guntexture.w)
         {
             color = *(unsigned int*)(img_data + (y * mlx->guntexture.line_len) + (x * mlx->guntexture.bpp / 8));
-            put_pixel_img(mlx, 816 - mlx->guntexture.w + x, 816 - mlx->guntexture.h + y, color);
+            put_pixel_img(mlx, WIDTH - mlx->guntexture.w + x, HEIGHT - mlx->guntexture.h + y, color);
             x++;
         }
         y++;
