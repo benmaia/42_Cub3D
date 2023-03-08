@@ -15,8 +15,7 @@ int		has_wall(double x, double y, t_mlx *mlx)
 {
 	int		mapgridx;
 	int		mapgridy;
-	if ((int)x < 0 || (int)x > WIDTH ||
-	(int)y < 0 || (int)y > HEIGHT)
+	if ((int)x < 0 || (int)y < 0)
 		return (1);
 	mapgridx = floor(x/ TILES);
 	mapgridy = floor(y / TILES);

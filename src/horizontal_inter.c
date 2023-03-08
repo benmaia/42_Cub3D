@@ -28,8 +28,8 @@ t_point horizontalinter(t_mlx *m, float ang)
 		xstep *= -1;
 	double nextx = xinter; 
 	double nexty = yinter;
-	
-	while (nextx >= 0 && nextx <= WIDTH && nexty >= 0 && nexty <= HEIGHT)
+	int dof = 0;
+	while (nextx >= 0 && nexty >= 0 && dof < INT_MAX)
 	{
 		if (has_wall(nextx, nexty - (r_dir == UP ? 1 : 0) , m))
 		{
@@ -38,8 +38,9 @@ t_point horizontalinter(t_mlx *m, float ang)
 			ywall = nexty;
 			break;
 		}
-		else 
+		else
 		{
+			dof++;
 			nextx += xstep;
 			nexty += ystep; 
 		}

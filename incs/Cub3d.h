@@ -24,7 +24,6 @@
 
 #	define SPEED 5
 #	define TILES 34
-# 	define WALL_HEIGHT 34
 
 #	define FOV M_PI / 3
 
