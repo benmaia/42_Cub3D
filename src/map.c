@@ -70,7 +70,7 @@ void mlx_square(t_mlx *mlx, int x, int y, int size, int color)
 
 void draw_map(t_mlx *mlx) 
 {
- 	int square_size = WIDTH /mlx->m->width /2 ;
+ 	int square_size = (mlx->m->width )/4 ;
   
   	for (int row = 0; row < mlx->m->height; row++) 
   	{
@@ -81,7 +81,7 @@ void draw_map(t_mlx *mlx)
             mlx_square(mlx, x, y, square_size, 0x000000);
         else if (mlx->m->map[row][col] == '0')
             mlx_square(mlx, x, y, square_size, 0xFFFFFF);
-        else if (mlx->m->map[row][col] == '0')
+        else if (mlx->m->map[row][col] == 'E')
             mlx_square(mlx, x, y, square_size, 0xDDFF00);    
         else
             mlx_square(mlx, x, y, square_size, 0x00EFEF);
@@ -92,11 +92,12 @@ void draw_map(t_mlx *mlx)
 void displayMap(t_mlx *mlx)
 {
     draw_map(mlx);
-	int pos_playerx;
-	int pos_playery;
-	pos_playerx = floor((mlx->p->x * mlx->m->width) / mlx->m->width) /2 ;
-	pos_playery = floor((mlx->p->y * mlx->m->height) / mlx->m->height) /2 ;
-	mlx_square(mlx, pos_playerx , pos_playery , 4, 0x00);
-	mlx_line_to(mlx, pos_playerx,pos_playery, pos_playerx + mlx->p->dx * 5, pos_playery + mlx->p->dy * 5, rgb_to_int(255,123,11));
+	float minimap_scale = 0.92;
+	float map_width = mlx->m->width * minimap_scale;
+	float map_height = mlx->m->height * minimap_scale;
+	int minimap_pos_x = mlx->p->x * (map_width / mlx->m->width) / 4;
+	int minimap_pos_y = mlx->p->y * (map_height / mlx->m->height) /4  ;
+	mlx_square(mlx, minimap_pos_x, minimap_pos_y, 4, 0x00);
+	mlx_line_to(mlx,  minimap_pos_x, minimap_pos_y,  minimap_pos_x + mlx->p->dx * 5, minimap_pos_y + mlx->p->dy * 5, rgb_to_int(255,123,11));
 	mlx_put_image_to_window(mlx->ptr, mlx->mlx_win,mlx->img , 0, 0);
 }
