@@ -1,7 +1,5 @@
 #include "../incs/Cub3d.h"
 
-void display_grid(t_mlx *mlx);
-
 int	refresh_screen(t_mlx *mlx)
 {
 	mlx_clear_window(mlx->ptr, mlx->mlx_win);
@@ -11,19 +9,6 @@ int	refresh_screen(t_mlx *mlx)
 	render_gun(mlx);
 	mlx_do_sync(mlx->ptr);
 	return (0);
-}
-
-t_player *init_player(t_player *player, t_map *map)
-{
-	player = malloc(sizeof(t_player));
-	printf("%d\n", map->width);
-	printf("%d\n", map->height);
-	player->x = map->p_y * TILES + TILES / 2;
-	player->y = map->p_x * TILES + TILES / 2;
-	player->ang = 0;
-	player->dx = cos(player->ang) * 5;
-	player->dy = sin(player->ang) * 5;
-	return(player);
 }
 
 int	main(int argc, char **argv)

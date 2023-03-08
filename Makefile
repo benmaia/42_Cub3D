@@ -12,6 +12,7 @@ MLX_L           := ./mlx_linux/libmlx_Linux.a
 
 SRCS			:=	$(PATH_SRC)/main.c \
 					$(PATH_SRC)/mlx_stuff.c \
+					$(PATH_SRC)/init.c \
 					$(PATH_SRC)/map.c \
 					$(PATH_SRC)/movement.c \
 					$(PATH_SRC)/rays.c \

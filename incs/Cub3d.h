@@ -108,6 +108,7 @@ typedef struct s_data
 
 
 void 	init_libmlx(t_mlx *mlx);
+t_player *init_player(t_player *player, t_map *map);
 int		refresh_screen(t_mlx *mlx);
 void	img_pix_put(t_mlx *img, int x, int y, int color);
 int		rgb_to_int(int r, int g, int b);
