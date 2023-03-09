@@ -38,7 +38,7 @@ int	ft_exit(t_mlx *mlx)
 
 void load_textures(t_mlx *mlx)
 {
-	mlx->textures[0].img_ptr = mlx_xpm_file_to_image(mlx->ptr,"./assets/siding4.xpm", &mlx->textures[0].w, &mlx->textures[0].h);
+	mlx->textures[0].img_ptr = mlx_xpm_file_to_image(mlx->ptr,"./assets/siding.xpm", &mlx->textures[0].w, &mlx->textures[0].h);
 	mlx->textures[0].addr = mlx_get_data_addr(mlx->textures[0].img_ptr, &mlx->textures[0].bpp, &mlx->textures[0].line_len, &mlx->textures[0].endian);
 	mlx->textures[1].img_ptr = mlx_xpm_file_to_image(mlx->ptr,"./assets/siding6.xpm", &mlx->textures[1].w, &mlx->textures[1].h);
 	mlx->textures[1].addr = mlx_get_data_addr(mlx->textures[1].img_ptr, &mlx->textures[1].bpp, &mlx->textures[1].line_len, &mlx->textures[1].endian);

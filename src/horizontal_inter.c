@@ -49,7 +49,7 @@ t_point horizontalinter(t_mlx *m, float ang)
 	inter.y = ywall;
 	if (hit)
 	{
-		if (xstep > 0)
+		if (xwall > m->p->x)
 			inter.hit = EAST;
 		else 
 			inter.hit = WEST;

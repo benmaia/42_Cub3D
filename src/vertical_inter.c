@@ -56,7 +56,7 @@ t_point verticalinter(t_mlx *m, float ang)
 	inter.y = ywall;
 	if (hit)
 	{
-		if (r_dir)
+		if (ywall > m->p->y)
 			inter.hit = NORTH;
 		else
 			inter.hit = SOUTH;

@@ -28,6 +28,24 @@ void	put_pixel_img(t_mlx *data, int x, int y, int color)
 	*(unsigned int *) dst = color;
 }
 
+int pick_texture(t_point close, float ang)
+{
+	ang = normalize_ang(ang);
+	if (close.hit > 1)
+	{
+		if (ang > M_PI)
+			return 0;
+		else
+			return 1;
+	}
+	else
+	{
+		if (ang >  M_PI / 2 && ang < (3 * M_PI) / 2)
+			return 2;
+		else
+			return 3;
+	}
+}
 void cast_rays(t_mlx *m)
 {
 	int i;
@@ -45,17 +63,18 @@ void cast_rays(t_mlx *m)
     	int drawEnd = lineheigth / 2 + HEIGHT / 2;
       	if(drawEnd >= HEIGHT)
 			drawEnd = HEIGHT - 1;
-		if (close.hit)
-            tex_x = (int)close.x * m->textures[0].w / TILES % m->textures[0].w;
+		int text = pick_texture(close, r_angle);
+		if (close.hit > 1)
+            tex_x = (int)close.x * m->textures[text].w / TILES % m->textures[text].w;
         else
-            tex_x = (int)close.y * m->textures[0].h / TILES % m->textures[0].h;
+            tex_x = (int)close.y * m->textures[text].h / TILES % m->textures[text].h;
 		int y = drawStart;
         while (y < drawEnd)
         {
-            // Calculate textures[0] coordinate for current pixel (HEIGHT - line_height) / 2;
-			int tex_y = ((y - HEIGHT / 2 + lineheigth / 2) * m->textures[0].h) / lineheigth;            
-			// Retrieve pixel value from textures[0] image data
-            char *tex_ptr = m->textures[0].addr + (tex_y * m->textures[0].line_len + tex_x * (m->textures[0].bpp / 8));
+            // Calculate textures[text] coordinate for current pixel (HEIGHT - line_height) / 2;
+			int tex_y = ((y - HEIGHT / 2 + lineheigth / 2) * m->textures[text].h) / lineheigth;            
+			// Retrieve pixel value from textures[text] image data
+            char *tex_ptr = m->textures[text].addr + (tex_y * m->textures[text].line_len + tex_x * (m->textures[text].bpp / 8));
             int color = *(int *)tex_ptr;
 		    put_pixel_img(m, i, y, color);
             y++;
