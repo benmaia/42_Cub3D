@@ -31,7 +31,7 @@ void	put_pixel_img(t_mlx *data, int x, int y, int color)
 int pick_texture(t_point close, float ang)
 {
 	ang = normalize_ang(ang);
-	if (close.hit > 1)
+	if (close.hit)
 	{
 		if (ang > M_PI)
 			return 0;
@@ -64,7 +64,7 @@ void cast_rays(t_mlx *m)
       	if(drawEnd >= HEIGHT)
 			drawEnd = HEIGHT - 1;
 		int text = pick_texture(close, r_angle);
-		if (close.hit > 1)
+		if (close.hit)
             tex_x = (int)close.x * m->textures[text].w / TILES % m->textures[text].w;
         else
             tex_x = (int)close.y * m->textures[text].h / TILES % m->textures[text].h;

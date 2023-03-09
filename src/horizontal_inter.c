@@ -49,10 +49,8 @@ t_point horizontalinter(t_mlx *m, float ang)
 	inter.y = ywall;
 	if (hit)
 	{
-		if (xwall > m->p->x)
-			inter.hit = EAST;
-		else 
-			inter.hit = WEST;
+
+		inter.hit = 1;
 		inter.dist2pl = distancebetween(m->p->x, m->p->y, xwall, ywall);
 		return(inter);
 	}
