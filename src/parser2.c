@@ -6,7 +6,7 @@
 /*   By: bmiguel- <bmiguel-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 21:43:00 by bmiguel-          #+#    #+#             */
-/*   Updated: 2023/03/09 00:00:28 by bmiguel-         ###   ########.fr       */
+/*   Updated: 2023/03/09 23:27:20 by bmiguel-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,21 +47,19 @@ void	parse_sky(t_mlx *g)
 
 	i = -1;
 	j = 0;
-	g->m->sky_colors = malloc(sizeof(int) * 3);
+	g->m->sky_colors = malloc((sizeof(int) * 3));
+	g->m->sky_colors[j] = ft_atoi(g->m->sky);
 	while (g->m->sky[++i])
-	{
-		if (i == 0 && g->m->sky[i] != ',')
-			g->m->sky_colors[j] = ft_atoi(g->m->sky);
 		if (g->m->sky[i] == ',')
 		{
-			if (++j == 3 || g->m->sky[++i] == ',')
+			if (++j == 3 || !g->m->sky[++i]
+					|| g->m->sky[i] == ',' || g->m->sky[i] == '\n')
 				exit(1);
 			g->m->sky_colors[j] = 
 				ft_atoi(ft_substr(g->m->sky, i, ft_strlen(g->m->sky)));
 		}
-	}
 	i = -1;
-	while (g->m->sky_colors[++i])
+	while (++i < 3)
 		if (g->m->sky_colors[i] < 0 || g->m->sky_colors[i] > 255)
 			exit(1);
 	g->m->sky_color = rgb_to_int(g->m->sky_colors[0], g->m->sky_colors[1], 
@@ -76,36 +74,22 @@ void	parse_floor(t_mlx *g)
 	i = -1;
 	j = 0;
 	g->m->floor_colors = malloc(sizeof(int) * 3);
+	g->m->floor_colors[j] = ft_atoi(g->m->floor);
 	while (g->m->floor[++i])
-	{
-		if (i == 0 && g->m->floor[i] != ',')
-			g->m->floor_colors[j] = ft_atoi(g->m->floor);
 		if (g->m->floor[i] == ',')
 		{
-			if (++j == 3 || g->m->floor[++i] == ',')
+			if (++j == 3 || !g->m->floor[++i]
+					|| g->m->floor[i] == ',' || g->m->floor[i] == '\n')
 				exit(1);
 			g->m->floor_colors[j] = 
 				ft_atoi(ft_substr(g->m->floor, i, ft_strlen(g->m->floor)));
 		}
-	}
 	i = -1;
-	while (g->m->floor_colors[++i])
+	while (++i < 3)
 		if (g->m->floor_colors[i] < 0 || g->m->floor_colors[i] > 255)
 			exit(1);
 	g->m->floor_color = rgb_to_int(g->m->floor_colors[0], g->m->floor_colors[1], 
 			g->m->floor_colors[2]);
-}
-
-bool	is_texture_path_valid(char *path)
-{
-	int fd;
-	char *file_type;
-
-	fd = open(path, O_RDONLY);
-	file_type = ft_substr(path, ft_strlen(path) - 4, ft_strlen(path));
-	if (fd == -1 || ft_strcmp(file_type, ".xpm"))
-		return false;
-	return true;
 }
 
 void	parse_textures(t_mlx *g)
@@ -141,5 +125,5 @@ void parse_values(t_mlx *g)
 	parse_colors(g);
 	parse_sky(g);
 	parse_floor(g);
-	/*(void)g;*/
 }
+	/*(void)g;*/

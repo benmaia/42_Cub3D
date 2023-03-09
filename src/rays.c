@@ -14,9 +14,9 @@ t_point calc_rays(t_mlx *m, float ang)
 void render_floor(t_mlx *mlx,int i ,int end, int start)
 {
 	if (end != HEIGHT)
-		mlx_line_to(mlx, i, end, i, HEIGHT,rgb_to_int(123,125,123) );
+		mlx_line_to(mlx, i, end, i, HEIGHT, mlx->m->floor_color);
 	if (start != 0)
-		mlx_line_to(mlx, i, start, i, 0,0x00FFFF);
+		mlx_line_to(mlx, i, start, i, 0, mlx->m->sky_color);
 }
 
 void	put_pixel_img(t_mlx *data, int x, int y, int color)

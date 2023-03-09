@@ -100,11 +100,11 @@ void draw_map(t_mlx *mlx)
         for (int col = 0; col < mlx->m->width; col++) {
         int x = col * square_size;
         int y = row * square_size;
-        if (mlx->m->cub[row][col] == '1') 
+        if (mlx->m->map[row][col] == '1') 
             mlx_square(mlx, x, y, square_size, 0x000000);
-        else if (mlx->m->cub[row][col] == '0')
+        else if (mlx->m->map[row][col] == '0')
             mlx_square(mlx, x, y, square_size, 0xFFFFFF);
-        else if (mlx->m->cub[row][col] == 'N')
+        else if (mlx->m->map[row][col] == 'N')
             mlx_square(mlx, x, y, square_size, 0xDDFF00);    
         else
             mlx_square(mlx, x, y, square_size, 0x00EFEF);

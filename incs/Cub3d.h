@@ -161,5 +161,7 @@ void	map_parser(int argc, char **argv, t_mlx *g);
 
 void	parse_colors(t_mlx *g);
 void	parse_values(t_mlx *g);
+bool	is_texture_path_valid(char *path);
+void	parse_map(t_mlx *g);
 
 #	endif
