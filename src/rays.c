@@ -22,7 +22,7 @@ void render_floor(t_mlx *mlx,int i ,int end, int start)
 void	put_pixel_img(t_mlx *data, int x, int y, int color)
 {
 	char	*dst;
-    if (color == 0xFF00FF)
+    if (color == 0xFF00FF || color == 0x182c2e)
 		return;
 	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
 	*(unsigned int *) dst = color;

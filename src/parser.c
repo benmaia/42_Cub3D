@@ -6,7 +6,7 @@
 /*   By: bmiguel- <bmiguel-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 18:44:30 by bmiguel-          #+#    #+#             */
-/*   Updated: 2023/03/09 22:53:26 by bmiguel-         ###   ########.fr       */
+/*   Updated: 2023/03/09 23:34:14 by bmiguel-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,6 @@ bool	check_map_playble(t_mlx *g)
 	i = -1;
 	while (g->m->map[++i])
 	{
-		printf("%d\n", i);
 		j = -1;
 		while (g->m->map[i][++j])
 		{

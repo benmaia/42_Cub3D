@@ -13,8 +13,6 @@ int	refresh_screen(t_mlx *mlx)
 
 int	main(int argc, char **argv)
 {
-	(void)argc;
-	(void)argv;
 	t_mlx	mlx;
 	map_parser(argc, argv, &mlx);
 	init_libmlx(&mlx);
