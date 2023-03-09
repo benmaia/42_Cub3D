@@ -1,7 +1,7 @@
 NAME	:=	cub3d
 
 CC		:=	gcc
-CFLAGS	:= 	-O3 -g -Wall -Wextra -Werror
+CFLAGS	:= 	-O3 -g -Wall -Wextra -Werror -fsanitize=address -g
 
 PATH_SRC		:=	./src
 PATH_INCLUDES	:=	./incs
@@ -24,6 +24,7 @@ SRCS			:=	$(PATH_SRC)/main.c \
 					$(PATH_SRC)/utils.c \
 					$(PATH_SRC)/utils2.c \
 					$(PATH_SRC)/parser.c \
+					$(PATH_SRC)/parser2.c \
 
 
 OBJ				:= $(subst .c,.o,$(subst $(PATH_SRC), $(PATH_OBJS), $(SRCS)))

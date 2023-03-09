@@ -39,7 +39,15 @@
 typedef struct s_map{
 	char orientation;
 	int fd;
+	char **texture;
+	char **cub;
 	char	**map;
+	int	*sky_colors;
+	int	*floor_colors;
+	int	sky_color;
+	int	floor_color;
+	char *sky;
+	char *floor;
 	int	height;
 	int	width;
 	int p_x;
@@ -139,8 +147,13 @@ char	*ft_strdup(const char *str);
 char	*ft_strjoin(char const *s1, char const *s2);
 char	*get_next_line(int fd);
 char	**ft_split(char const *s, char c);
+int	ft_strncmp(const char *s1, const char *s2, size_t n);
+int	ft_atoi(const char *str);
 
 /*/############ PARSER #############*/
 void	map_parser(int argc, char **argv, t_mlx *g);
+
+void	parse_colors(t_mlx *g);
+void	parse_values(t_mlx *g);
 
 #	endif

@@ -6,7 +6,7 @@
 /*   By: bmiguel- <bmiguel-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 18:44:30 by bmiguel-          #+#    #+#             */
-/*   Updated: 2023/03/07 20:47:27 by bmiguel-         ###   ########.fr       */
+/*   Updated: 2023/03/09 00:00:53 by bmiguel-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,18 +22,13 @@ void	read_map(t_mlx *g)
 	buf = get_next_line(g->m->fd);
 	while (buf != NULL)
 	{
-		if (!ft_strcmp(buf, "\n"))
-		{
-			printf("Invalid map\n");
-			exit(1);
-		}
 		tmp = ft_strjoin(str, buf);
 		free(str);
 		str = tmp;
 		free(buf);
 		buf = get_next_line(g->m->fd);
 	}
-	g->m->map = ft_split(str, '\n');
+	g->m->cub = ft_split(str, '\n');
 	free(str);
 	str = NULL;
 	free(buf);
@@ -71,14 +66,15 @@ bool	check_map_playble(t_mlx *g)
 	int			j;
 
 	i = -1;
-	while (g->m->map[++i])
+	while (g->m->cub[++i])
 	{
 		j = -1;
-		while (g->m->map[i][++j])
+		while (g->m->cub[i][++j])
 		{
-			if (g->m->map[i][j] == 'N' || g->m->map[i][j] == 'S' || g->m->map[i][j] == 'W' || g->m->map[i][j] == 'E')
+			if (g->m->cub[i][j] == 'N' || g->m->cub[i][j] == 'S'
+					|| g->m->cub[i][j] == 'W' || g->m->cub[i][j] == 'E')
 			{
-				g->m->orientation = g->m->map[i][j];
+				g->m->orientation = g->m->cub[i][j];
 				g->m->p_x = i;
 				g->m->p_y = j;
 				g->m->players++;
@@ -92,6 +88,7 @@ bool	check_map_playble(t_mlx *g)
 	return true;
 }
 
+
 void	map_parser(int argc, char **argv, t_mlx *g)
 {
 	g->m = malloc(sizeof(t_map));
@@ -102,7 +99,13 @@ void	map_parser(int argc, char **argv, t_mlx *g)
 		exit(1);
 	}
 	read_map(g);
+	/*parse_values(g);*/
 	if (!check_map_playble(g) || g->m->players != 1)
 		exit(1);
+	int i = -1;
+	while (g->m->cub[++i])
+	{
+		printf("%s\n", g->m->cub[i]);
+	}
 
 }
