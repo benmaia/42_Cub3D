@@ -31,6 +31,9 @@ int	ft_exit(t_mlx *mlx)
 	mlx_destroy_image(mlx->ptr, mlx->img);
 	mlx_destroy_image(mlx->ptr, mlx->guntexture.img_ptr);
 	mlx_destroy_image(mlx->ptr, mlx->textures[0].img_ptr);
+	mlx_destroy_image(mlx->ptr, mlx->textures[1].img_ptr);
+	mlx_destroy_image(mlx->ptr, mlx->textures[2].img_ptr);
+	mlx_destroy_image(mlx->ptr, mlx->textures[3].img_ptr);
 	free(mlx->p);
 	exit(0);
 	return (0);
@@ -38,13 +41,13 @@ int	ft_exit(t_mlx *mlx)
 
 void load_textures(t_mlx *mlx)
 {
-	mlx->textures[0].img_ptr = mlx_xpm_file_to_image(mlx->ptr,"./assets/siding.xpm", &mlx->textures[0].w, &mlx->textures[0].h);
+	mlx->textures[0].img_ptr = mlx_xpm_file_to_image(mlx->ptr,"./assets/siding3.xpm", &mlx->textures[0].w, &mlx->textures[0].h);
 	mlx->textures[0].addr = mlx_get_data_addr(mlx->textures[0].img_ptr, &mlx->textures[0].bpp, &mlx->textures[0].line_len, &mlx->textures[0].endian);
-	mlx->textures[1].img_ptr = mlx_xpm_file_to_image(mlx->ptr,"./assets/siding6.xpm", &mlx->textures[1].w, &mlx->textures[1].h);
+	mlx->textures[1].img_ptr = mlx_xpm_file_to_image(mlx->ptr,"./assets/siding5.xpm", &mlx->textures[1].w, &mlx->textures[1].h);
 	mlx->textures[1].addr = mlx_get_data_addr(mlx->textures[1].img_ptr, &mlx->textures[1].bpp, &mlx->textures[1].line_len, &mlx->textures[1].endian);
-	mlx->textures[2].img_ptr = mlx_xpm_file_to_image(mlx->ptr,"./assets/siding2.xpm", &mlx->textures[2].w, &mlx->textures[2].h);
+	mlx->textures[2].img_ptr = mlx_xpm_file_to_image(mlx->ptr,"./assets/siding4.xpm", &mlx->textures[2].w, &mlx->textures[2].h);
 	mlx->textures[2].addr = mlx_get_data_addr(mlx->textures[2].img_ptr, &mlx->textures[2].bpp, &mlx->textures[2].line_len, &mlx->textures[2].endian);
-	mlx->textures[3].img_ptr = mlx_xpm_file_to_image(mlx->ptr,"./assets/siding3.xpm", &mlx->textures[3].w, &mlx->textures[3].h);
+	mlx->textures[3].img_ptr = mlx_xpm_file_to_image(mlx->ptr,"./assets/siding6.xpm", &mlx->textures[3].w, &mlx->textures[3].h);
 	mlx->textures[3].addr = mlx_get_data_addr(mlx->textures[3].img_ptr, &mlx->textures[3].bpp, &mlx->textures[3].line_len, &mlx->textures[3].endian);
 	mlx->guntexture.img_ptr = mlx_xpm_file_to_image(mlx->ptr,"./assets/gun0.xpm", &mlx->guntexture.w, &mlx->guntexture.h);
 	mlx->guntexture.addr = mlx_get_data_addr(mlx->guntexture.img_ptr, &mlx->guntexture.bpp, &mlx->guntexture.line_len, &mlx->guntexture.endian);
