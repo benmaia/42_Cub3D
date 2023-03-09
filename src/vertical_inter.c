@@ -56,6 +56,10 @@ t_point verticalinter(t_mlx *m, float ang)
 	inter.y = ywall;
 	if (hit)
 	{
+		if (r_dir)
+			inter.hit = NORTH;
+		else
+			inter.hit = SOUTH;
 		inter.dist2pl = distancebetween(m->p->x, m->p->y, xwall, ywall);
 		return(inter);
 	}

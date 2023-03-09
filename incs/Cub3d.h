@@ -19,6 +19,12 @@
 #	define LEFT 2
 #	define RIGHT 3
 
+
+#	define NORTH 0
+#	define SOUTH 1
+#	define EAST 2
+#	define WEST 3
+
 # 	define WIDTH 920
 # 	define HEIGHT 920
 
@@ -103,10 +109,10 @@ typedef struct	s_mlx {
 	int		win_x;
 	int		win_y;
 	int 	**map;
-	t_image		texture;
+	t_image		textures[4];
 	t_image		guntexture;
 	t_player	*p;
-	t_map	*m;
+	t_map		*m;
 }				t_mlx;
 
 typedef struct s_data
