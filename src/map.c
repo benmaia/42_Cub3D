@@ -1,6 +1,6 @@
 #include "../incs/Cub3d.h"
-#define ROWS 24
-#define COLS 24
+
+
 void	img_pix_put(t_mlx *img, int x, int y, int color);
 int 	draw_square(t_mlx *mlx, int z, int k, int size);
 
@@ -59,8 +59,8 @@ void display_grid(t_mlx *mlx)
 {
     int x, y;
     int color = rgb_to_int(0,0,0);
-    int cell_width = (WIDTH / mlx->m->width) ;
-    int cell_height =( HEIGHT / mlx->m->height);
+    int cell_width = (WIDTH * 0.25/ mlx->m->width) ;
+    int cell_height =( HEIGHT * 0.25 / mlx->m->height);
 
     for (y = 0; y < mlx->m->height; y++)
     {
@@ -93,7 +93,7 @@ void mlx_square(t_mlx *mlx, int x, int y, int size, int color)
 
 void draw_map(t_mlx *mlx) 
 {
-    int square_size = mlx->m->width / (WIDTH * 0.25 /mlx->m->width);
+    int square_size = WIDTH * 0.25 / mlx->m->width;
   
   	for (int row = 0; row < mlx->m->height; row++) 
   	{
@@ -116,11 +116,11 @@ void draw_map(t_mlx *mlx)
 void displayMap(t_mlx *mlx)
 {
     draw_map(mlx);
-    float minimap_scale = 0.145;
-    float map_width = WIDTH * minimap_scale;
-    float map_height = HEIGHT * minimap_scale;
-    int minimap_pos_x = mlx->p->x * (map_width / WIDTH);
-    int minimap_pos_y = mlx->p->y * (map_height / HEIGHT);
+    // float minimap_scale = 0.145;
+    // float map_width = WIDTH * minimap_scale;
+    // float map_height = HEIGHT * minimap_scale;
+    int minimap_pos_x =  WIDTH * 0.25 * mlx->p->x / WIDTH / 1.45;
+    int minimap_pos_y = HEIGHT * 0.25 * mlx->p->y / HEIGHT / 1.45;
     mlx_square(mlx, minimap_pos_x, minimap_pos_y, 4, 0x00);
     mlx_line_to(mlx,  minimap_pos_x, minimap_pos_y,  minimap_pos_x + mlx->p->dx * 5, minimap_pos_y + mlx->p->dy * 5, rgb_to_int(255,123,11));
     mlx_put_image_to_window(mlx->ptr, mlx->mlx_win, mlx->img, 0, 0);
