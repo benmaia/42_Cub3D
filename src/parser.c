@@ -6,7 +6,7 @@
 /*   By: bmiguel- <bmiguel-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 18:44:30 by bmiguel-          #+#    #+#             */
-/*   Updated: 2023/03/11 16:11:47 by bmiguel-         ###   ########.fr       */
+/*   Updated: 2023/03/11 17:23:32 by bmiguel-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,6 @@ bool	is_texture_path_valid(char *path)
 		free(file_type);
 		return (false);
 	}
-	printf("%s\n", path);
 	free(file_type);
 	return (true);
 }
@@ -133,4 +132,5 @@ void	map_parser(int argc, char **argv, t_mlx *g)
 				&& g->m->map[i][j] != 'W')
 				wrong_map(g);
 	}
+	map_close(g);
 }

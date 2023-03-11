@@ -1,0 +1,13 @@
+NO ./assets/siding0.xpm
+SO ./assets/siding1.xpm
+WE ./assets/siding2.xpm
+EA ./assets/siding3.xpm
+
+
+C 200,200,200
+F 100,100,100
+
+1111
+1001
+10W1
+1111

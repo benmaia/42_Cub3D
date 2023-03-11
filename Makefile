@@ -23,10 +23,12 @@ SRCS			:=	$(PATH_SRC)/main.c \
 					$(PATH_SRC)/gnl.c \
 					$(PATH_SRC)/utils.c \
 					$(PATH_SRC)/utils2.c \
+					$(PATH_SRC)/utils3.c \
 					$(PATH_SRC)/parser.c \
 					$(PATH_SRC)/parser2.c \
 					$(PATH_SRC)/parse_map.c \
 					$(PATH_SRC)/init_map.c \
+					$(PATH_SRC)/map_close.c \
 
 
 OBJ				:= $(subst .c,.o,$(subst $(PATH_SRC), $(PATH_OBJS), $(SRCS)))

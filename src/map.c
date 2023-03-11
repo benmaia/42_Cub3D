@@ -6,7 +6,7 @@
 /*   By: bmiguel- <bmiguel-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/11 15:09:04 by bmiguel-          #+#    #+#             */
-/*   Updated: 2023/03/11 15:09:36 by bmiguel-         ###   ########.fr       */
+/*   Updated: 2023/03/11 21:58:39 by bmiguel-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,11 +126,11 @@ void	draw_map(t_mlx *mlx)
 		{
 			x = col * square_size;
 			y = row * square_size;
-			if (mlx->m->map[row][col] == '1')
+			if (mlx->m->minimap[row][col] == '1')
 				mlx_square(mlx, x, y, square_size, 0x000000);
-			else if (mlx->m->map[row][col] == '0')
+			else if (mlx->m->minimap[row][col] == '0')
 				mlx_square(mlx, x, y, square_size, 0xFFFFFF);
-			else if (mlx->m->map[row][col] == 'N')
+			else if (mlx->m->minimap[row][col] == 'N')
 				mlx_square(mlx, x, y, square_size, 0xDDFF00);
 			else
 				mlx_square(mlx, x, y, square_size, 0x00EFEF);

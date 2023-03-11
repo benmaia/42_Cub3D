@@ -59,6 +59,7 @@ typedef struct s_map{
 	int p_x;
 	int p_y;
 	int players;
+	char	**minimap;
 } t_map;
 
 typedef struct s_point{
@@ -166,5 +167,9 @@ void	parse_map(t_mlx *g);
 void init_map_struct(t_mlx *g);
 void free_map(t_mlx *g);
 void wrong_map(t_mlx *g);
+void map_close(t_mlx *g);
+char	*ft_strcpy(char *dest, char *src);
+void	*ft_memset(void *str, int c, size_t count);
+void	*ft_calloc(size_t n, size_t size);
 
 #	endif
