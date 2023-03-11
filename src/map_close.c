@@ -6,7 +6,7 @@
 /*   By: bmiguel- <bmiguel-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/11 16:51:29 by bmiguel-          #+#    #+#             */
-/*   Updated: 2023/03/11 21:59:31 by bmiguel-         ###   ########.fr       */
+/*   Updated: 2023/03/11 23:05:25 by bmiguel-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ char	**map_matrix(t_mlx *g)
 	while (g->m->minimap[++i])
 	{
 		g->m->minimap[i] = ft_calloc(g->m->width, 1);
-		ft_memset(g->m->minimap[i], ' ', g->m->width - 1);
+		ft_memset(g->m->minimap[i], '9', g->m->width - 1);
 		ft_strcpy(g->m->minimap[i], g->m->map[i]);
 		g->m->minimap[i][g->m->width - 1] = '\0';
 	}
@@ -45,7 +45,7 @@ void	last_line(char *map, t_mlx *g)
 
 	j = -1;
 	while (map[++j])
-		if (map[j] != '1' && map[j] != ' ')
+		if (map[j] != '1' && map[j] != ' ' && map[j] != '\0')
 			wrong_map(g);
 }
 
@@ -77,9 +77,9 @@ void	map_close(t_mlx *g)
 	while (g->m->minimap[++i])
 	{
 		if (i == 0)
-			first_line(g->m->minimap[i], g);
+			first_line(g->m->map[i], g);
 		else if (!g->m->map[i + 1])
-			last_line(g->m->minimap[i], g);
+			last_line(g->m->map[i], g);
 		else
 			mid_lines(g->m->minimap, g, i);
 	}
