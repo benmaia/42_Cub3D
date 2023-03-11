@@ -19,5 +19,6 @@ int	main(int argc, char **argv)
 	mlx.p = init_player(mlx.p, mlx.m);
 	refresh_screen(&mlx);
 	mlx_loop(mlx.ptr);
+	free_map(&mlx);
 	return(1);
 }

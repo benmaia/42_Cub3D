@@ -6,7 +6,7 @@
 /*   By: bmiguel- <bmiguel-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 21:43:00 by bmiguel-          #+#    #+#             */
-/*   Updated: 2023/03/09 23:27:20 by bmiguel-         ###   ########.fr       */
+/*   Updated: 2023/03/11 13:06:32 by bmiguel-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@ void	parse_colors(t_mlx *g)
 	int	i;
 
 	i = -1;
-	g->m->sky = NULL;
-	g->m->floor = NULL;
 	while(g->m->cub[++i])
 	{
 		if (!ft_strncmp(g->m->cub[i], "C ", 2))
@@ -28,22 +26,23 @@ void	parse_colors(t_mlx *g)
 	}
 	i = -1;
 	if (g->m->sky == NULL || g->m->floor == NULL)
-		exit(1);
+		wrong_map(g);
 	while(g->m->sky[++i])
 		if ((g->m->sky[i] > '9' && g->m->sky[i] != ',')
 				|| (g->m->sky[i] < '0' && g->m->sky[i] != ','))
-				exit(1);
+				wrong_map(g);
 	i = -1;
 	while(g->m->floor[++i])
 		if ((g->m->floor[i] > '9' && g->m->floor[i] != ',')
 				|| (g->m->floor[i] < '0' && g->m->floor[i] != ','))
-				exit(1);
+				wrong_map(g);
 }
 
 void	parse_sky(t_mlx *g)
 {
 	int	i;
 	int	j;
+	char	*sky;
 
 	i = -1;
 	j = 0;
@@ -55,13 +54,14 @@ void	parse_sky(t_mlx *g)
 			if (++j == 3 || !g->m->sky[++i]
 					|| g->m->sky[i] == ',' || g->m->sky[i] == '\n')
 				exit(1);
-			g->m->sky_colors[j] = 
-				ft_atoi(ft_substr(g->m->sky, i, ft_strlen(g->m->sky)));
+			sky = ft_substr(g->m->sky, i, ft_strlen(g->m->sky));
+			g->m->sky_colors[j] = ft_atoi(sky);
+			free (sky);
 		}
 	i = -1;
 	while (++i < 3)
 		if (g->m->sky_colors[i] < 0 || g->m->sky_colors[i] > 255)
-			exit(1);
+			wrong_map(g);
 	g->m->sky_color = rgb_to_int(g->m->sky_colors[0], g->m->sky_colors[1], 
 			g->m->sky_colors[2]);
 }
@@ -70,6 +70,7 @@ void	parse_floor(t_mlx *g)
 {
 	int	i;
 	int	j;
+	char	*floor;
 
 	i = -1;
 	j = 0;
@@ -80,14 +81,15 @@ void	parse_floor(t_mlx *g)
 		{
 			if (++j == 3 || !g->m->floor[++i]
 					|| g->m->floor[i] == ',' || g->m->floor[i] == '\n')
-				exit(1);
-			g->m->floor_colors[j] = 
-				ft_atoi(ft_substr(g->m->floor, i, ft_strlen(g->m->floor)));
+				wrong_map(g);
+			floor = ft_substr(g->m->floor, i, ft_strlen(g->m->floor));
+			g->m->floor_colors[j] = ft_atoi(floor);
+			free (floor);
 		}
 	i = -1;
 	while (++i < 3)
 		if (g->m->floor_colors[i] < 0 || g->m->floor_colors[i] > 255)
-			exit(1);
+			wrong_map(g);
 	g->m->floor_color = rgb_to_int(g->m->floor_colors[0], g->m->floor_colors[1], 
 			g->m->floor_colors[2]);
 }
@@ -116,7 +118,7 @@ void	parse_textures(t_mlx *g)
 	while(++i < 4)
 		if (g->m->texture[i] == NULL
 				|| !is_texture_path_valid(g->m->texture[i]))
-			exit(1);
+			wrong_map(g);
 }
 
 void parse_values(t_mlx *g)
@@ -126,4 +128,3 @@ void parse_values(t_mlx *g)
 	parse_sky(g);
 	parse_floor(g);
 }
-	/*(void)g;*/

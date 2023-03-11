@@ -3,7 +3,7 @@ SO ./assets/siding1.xpm
 WE ./assets/siding2.xpm
 EA ./assets/siding3.xpm
 
-F 220,100,230
+F 220,200,230
 C 25,130,79
 
 1111111111111111111111111111111111111

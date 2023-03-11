@@ -163,5 +163,8 @@ void	parse_colors(t_mlx *g);
 void	parse_values(t_mlx *g);
 bool	is_texture_path_valid(char *path);
 void	parse_map(t_mlx *g);
+void init_map_struct(t_mlx *g);
+void free_map(t_mlx *g);
+void wrong_map(t_mlx *g);
 
 #	endif

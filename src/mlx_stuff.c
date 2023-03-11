@@ -35,6 +35,9 @@ int	ft_exit(t_mlx *mlx)
 	mlx_destroy_image(mlx->ptr, mlx->textures[2].img_ptr);
 	mlx_destroy_image(mlx->ptr, mlx->textures[3].img_ptr);
 	free(mlx->p);
+	free(mlx->ptr);
+	free(mlx->mlx_win);
+	free_map(mlx);
 	exit(0);
 	return (0);
 }

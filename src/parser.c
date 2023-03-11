@@ -6,7 +6,7 @@
 /*   By: bmiguel- <bmiguel-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 18:44:30 by bmiguel-          #+#    #+#             */
-/*   Updated: 2023/03/09 23:34:14 by bmiguel-         ###   ########.fr       */
+/*   Updated: 2023/03/11 12:58:22 by bmiguel-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,11 @@ bool	is_file_valid(int argc, char **argv, t_mlx *g)
 	}
 	g->m->fd = open(argv[1], O_RDONLY);
 	if (g->m->fd == -1 || ft_strcmp(file_type, ".cub"))
+	{
+		free (file_type);
 		return false;
+	}
+	free (file_type);
 	return true;
 }
 
@@ -96,22 +100,23 @@ bool	is_texture_path_valid(char *path)
 	fd = open(path, O_RDONLY);
 	file_type = ft_substr(path, ft_strlen(path) - 4, ft_strlen(path));
 	if (fd == -1 || ft_strcmp(file_type, ".xpm"))
+	{
+		free (file_type);
 		return false;
+	}
+	free (file_type);
 	return true;
 }
 
 void	map_parser(int argc, char **argv, t_mlx *g)
 {
 	g->m = malloc(sizeof(t_map));
-	g->m->players = 0;
+	init_map_struct(g);
 	if (is_file_valid(argc, argv, g) == false)
-	{
-		printf("\nPlease select a valid file, only .cub files are accepted\n");
-		exit(1);
-	}
+		wrong_map(g);
 	read_map(g);
 	parse_values(g);
 	parse_map(g);
 	if (!check_map_playble(g) || g->m->players != 1)
-		exit(1);
+		wrong_map(g);
 }
