@@ -6,13 +6,13 @@
 /*   By: bmiguel- <bmiguel-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/11 12:09:43 by bmiguel-          #+#    #+#             */
-/*   Updated: 2023/03/11 12:46:36 by bmiguel-         ###   ########.fr       */
+/*   Updated: 2023/03/11 15:07:47 by bmiguel-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/Cub3d.h"
 
-void init_map_struct(t_mlx *g)
+void	init_map_struct(t_mlx *g)
 {
 	g->m->fd = 0;
 	g->m->sky = NULL;
@@ -31,9 +31,9 @@ void init_map_struct(t_mlx *g)
 	g->m->texture = NULL;
 }
 
-void free_double_arrays(t_mlx *g)
+void	free_double_arrays(t_mlx *g)
 {
-	int i;
+	int	i;
 
 	i = -1;
 	if (g->m->cub)
@@ -58,7 +58,7 @@ void free_double_arrays(t_mlx *g)
 	}
 }
 
-void free_map(t_mlx *g)
+void	free_map(t_mlx *g)
 {
 	if (g->m->sky)
 		free(g->m->sky);
@@ -72,7 +72,7 @@ void free_map(t_mlx *g)
 	free(g->m);
 }
 
-void wrong_map(t_mlx *g)
+void	wrong_map(t_mlx *g)
 {
 	free_map(g);
 	printf("Please select a valid map\nFile Type must be cub\n");

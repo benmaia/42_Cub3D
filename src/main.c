@@ -1,15 +1,25 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bmiguel- <bmiguel-@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/03/11 15:07:57 by bmiguel-          #+#    #+#             */
+/*   Updated: 2023/03/11 15:08:43 by bmiguel-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../incs/Cub3d.h"
 
-void display_grid(t_mlx *mlx);
+void	display_grid(t_mlx *mlx);
 
 int	refresh_screen(t_mlx *mlx)
 {
-	//mlx_destroy_image(mlx->ptr, mlx->img);
 	cast_rays(mlx);
 	displayMap(mlx);
 	render_gun(mlx);
-	//display_grid(mlx);
-	mlx_put_image_to_window(mlx->ptr, mlx->mlx_win, mlx->img , 0, 0);
+	mlx_put_image_to_window(mlx->ptr, mlx->mlx_win, mlx->img, 0, 0);
 	mlx_do_sync(mlx->ptr);
 	return (0);
 }
@@ -17,11 +27,12 @@ int	refresh_screen(t_mlx *mlx)
 int	main(int argc, char **argv)
 {
 	t_mlx	mlx;
+
 	map_parser(argc, argv, &mlx);
 	init_libmlx(&mlx);
 	mlx.p = init_player(mlx.p, mlx.m);
 	refresh_screen(&mlx);
 	mlx_loop(mlx.ptr);
 	free_map(&mlx);
-	return(1);
+	return (1);
 }

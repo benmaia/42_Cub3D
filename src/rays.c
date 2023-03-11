@@ -66,7 +66,7 @@ void cast_rays(t_mlx *m)
 		int text = pick_texture(close, r_angle);
 		if (close.hit)
             tex_x = (int)close.x * m->textures[text].w / TILES % m->textures[text].w;
-        else
+      else
             tex_x = (int)close.y * m->textures[text].h / TILES % m->textures[text].h;
 		int y = drawStart;
         while (y < drawEnd)
