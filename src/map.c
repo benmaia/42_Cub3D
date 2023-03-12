@@ -6,7 +6,7 @@
 /*   By: bmiguel- <bmiguel-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/11 15:09:04 by bmiguel-          #+#    #+#             */
-/*   Updated: 2023/03/11 21:58:39 by bmiguel-         ###   ########.fr       */
+/*   Updated: 2023/03/12 13:13:26 by bmiguel-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,13 +85,13 @@ void	display_grid(t_mlx *mlx)
 		for (x = 0; x < mlx->m->width; x++)
 		{
 			mlx_line_to(mlx, x * cell_width, y * cell_height, (x + 1)
-					* cell_width, y * cell_height, color);
+				* cell_width, y * cell_height, color);
 			mlx_line_to(mlx, x * cell_width, (y + 1) * cell_height, (x + 1)
-					* cell_width, (y + 1) * cell_height, color);
+				* cell_width, (y + 1) * cell_height, color);
 			mlx_line_to(mlx, x * cell_width, y * cell_height, x * cell_width, (y
-						+ 1) * cell_height, color);
+					+ 1) * cell_height, color);
 			mlx_line_to(mlx, (x + 1) * cell_width, y * cell_height, (x + 1)
-					* cell_width, (y + 1) * cell_height, color);
+				* cell_width, (y + 1) * cell_height, color);
 		}
 	}
 }
@@ -118,11 +118,15 @@ void	draw_map(t_mlx *mlx)
 	int	square_size;
 	int	x;
 	int	y;
+	int	col;
+	int	row;
 
 	square_size = WIDTH * 0.25 / mlx->m->width;
-	for (int row = 0; row < mlx->m->height; row++)
+	row = -1;
+	while (mlx->m->minimap[++row])
 	{
-		for (int col = 0; col < mlx->m->width; col++)
+		col = -1;
+		while (mlx->m->minimap[row][++col])
 		{
 			x = col * square_size;
 			y = row * square_size;
@@ -148,6 +152,6 @@ void	displayMap(t_mlx *mlx)
 	minimap_pos_y = HEIGHT * 0.25 * mlx->p->y / HEIGHT / 1.45;
 	mlx_square(mlx, minimap_pos_x, minimap_pos_y, 4, 0x00);
 	mlx_line_to(mlx, minimap_pos_x, minimap_pos_y, minimap_pos_x + mlx->p->dx
-			* 5, minimap_pos_y + mlx->p->dy * 5, rgb_to_int(255, 123, 11));
+		* 5, minimap_pos_y + mlx->p->dy * 5, rgb_to_int(255, 123, 11));
 	mlx_put_image_to_window(mlx->ptr, mlx->mlx_win, mlx->img, 0, 0);
 }

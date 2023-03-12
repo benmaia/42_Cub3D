@@ -6,7 +6,7 @@
 /*   By: bmiguel- <bmiguel-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/11 15:07:57 by bmiguel-          #+#    #+#             */
-/*   Updated: 2023/03/12 06:30:03 by bmiguel-         ###   ########.fr       */
+/*   Updated: 2023/03/12 13:04:33 by bmiguel-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,11 @@ int	refresh_screen(t_mlx *mlx)
 int	main(int argc, char **argv)
 {
 	t_mlx	mlx;
+	int i = -1;
 
 	map_parser(argc, argv, &mlx);
+	while (mlx.m->minimap[++i])
+		printf("%s\n", mlx.m->minimap[i]);
 	init_libmlx(&mlx);
 	mlx.p = init_player(mlx.p, mlx.m);
 	refresh_screen(&mlx);
