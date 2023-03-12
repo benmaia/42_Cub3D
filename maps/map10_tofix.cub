@@ -1,10 +1,16 @@
 NO ./assets/siding0.xpm
 SO ./assets/siding1.xpm
-WE ./assets/siding2.xpm
 EA ./assets/siding3.xpm
 
 F 255,0,255
+
+WE ./assets/siding2.xpm
+
 C 0,218,218
+
+
+
+
 
 
 1111111111111111111111111111111111111111111
