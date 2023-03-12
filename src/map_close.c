@@ -6,7 +6,7 @@
 /*   By: bmiguel- <bmiguel-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/11 16:51:29 by bmiguel-          #+#    #+#             */
-/*   Updated: 2023/03/12 06:32:28 by bmiguel-         ###   ########.fr       */
+/*   Updated: 2023/03/12 12:50:35 by bmiguel-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ char	**map_matrix(t_mlx *g)
 	while (++i < g->m->height)
 	{
 		g->m->minimap[i] = malloc(g->m->width + 1);
-		ft_memset(g->m->minimap[i], '0', g->m->width - 1);
+		ft_memset(g->m->minimap[i], ' ', g->m->width - 1);
 		ft_strcpy(g->m->minimap[i], g->m->map[i]);
 		g->m->minimap[i][g->m->width - 1] = '\0';
 	}
