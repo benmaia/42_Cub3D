@@ -21,7 +21,7 @@ int		has_wall(double x, double y, t_mlx *mlx)
 	mapgridy = floor(y / TILES);
 	if (mapgridx >= mlx->m->width || mapgridy >= mlx->m->height)
 		return (2);
-	else if (mlx->m->minimap[mapgridy][mapgridx] == '1')
+	else if (mlx->m->map[mapgridy][mapgridx] == '1')
 		return (1);
 	return (0);
 }
