@@ -1,59 +1,48 @@
 #include "../incs/Cub3d.h"
 
+void set_initial_ray_values(t_ray *ray, float ang, t_mlx *m)
+{
+	ray->xwall = 0;
+	ray->ywall = 0;
+	ray->r_ang = normalize_ang(ang);
+	ray->r_dir = upordown(ray->r_ang);
+	ray->r_lor = leftorright(ray->r_ang);
+	ray->yinter = floor(m->p->y / TILES) * TILES;
+	if (ray->r_dir == DOWN)
+		ray->yinter += TILES;
+	ray->xinter = m->p->x + (ray->yinter - m->p->y)/tan(ray->r_ang);
+	ray->ystep = TILES;
+	if (ray->r_dir == UP)
+		ray->ystep *= -1;
+	ray->xstep = TILES / tan(ray->r_ang);
+	if ((ray->r_lor == LEFT && ray->xstep > 0) || (ray->r_lor == RIGHT && ray->xstep < 0))
+		ray->xstep *= -1;
+	ray->nextx = ray->xinter; 
+	ray->nexty = ray->yinter;
+}
+
 t_point horizontalinter(t_mlx *m, float ang)
 {
 	t_point inter;
-	inter.hit = 1;
-	double xinter, yinter;
-	double xstep, ystep;
-	double xwall, ywall;
-	xwall = 0;
-	ywall = 0;
-	int hit = 0;
-
-	float r_angle; 
-	r_angle = (ang);
-	int r_dir = upordown(r_angle);
-	int r_lor = leftorright(r_angle);
-
-	yinter = floor(m->p->y / TILES) * TILES;
-	if (r_dir == DOWN)
-		yinter += TILES;
-	xinter = m->p->x + (yinter - m->p->y)/tan(r_angle);
-	ystep = TILES;
-	if (r_dir == UP)
-		ystep *= -1;
-	xstep = TILES / tan(r_angle);
-	if ((r_lor == LEFT && xstep > 0) || (r_lor == RIGHT && xstep < 0))
-		xstep *= -1;
-	double nextx = xinter; 
-	double nexty = yinter;
-	int dof = 0;
-	while (nextx >= 0 && nexty >= 0 && dof < INT_MAX)
+	t_ray	ray;
+	set_initial_ray_values(&ray, ang, m);
+	while (ray.nextx >= 0 && ray.nexty >= 0)
 	{
-		if (has_wall(nextx, nexty - (r_dir == UP ? 1 : 0) , m))
+		if (has_wall(ray.nextx, ray.nexty - (ray.r_dir == UP ? 1 : 0) , m))
 		{
-			hit = 1;
-			xwall = nextx;
-			ywall = nexty;
+			ray.xwall = ray.nextx;
+			ray.ywall = ray.nexty;
 			break;
 		}
 		else
 		{
-			dof++;
-			nextx += xstep;
-			nexty += ystep; 
+			ray.nextx += ray.xstep;
+			ray.nexty += ray.ystep; 
 		}
 	}
-	inter.x = xwall;
-	inter.y = ywall;
-	if (hit)
-	{
-
-		inter.hit = 1;
-		inter.dist2pl = distancebetween(m->p->x, m->p->y, xwall, ywall);
-		return(inter);
-	}
-	inter.dist2pl = INT_MAX;
+	inter.x = ray.xwall;
+	inter.y = ray.ywall;
+	inter.hit = 1;
+	inter.dist2pl = distancebetween(m->p->x, m->p->y, ray.xwall, ray.ywall);
 	return(inter);
 }

@@ -1,63 +1,52 @@
 
 #include "../incs/Cub3d.h"
 
+
+void set_initial_ray_values_ver(t_ray *ray, float ang, t_mlx *m)
+{
+	ray->xwall = 0;
+	ray->ywall = 0;
+	ray->r_ang = normalize_ang(ang);
+	ray->r_dir = upordown(ray->r_ang);
+	ray->r_lor = leftorright(ray->r_ang);
+	ray->xinter = floor(m->p->x / TILES) * TILES;
+	if (ray->r_lor == RIGHT)
+		ray->xinter += TILES;
+	ray->yinter = m->p->y + (ray->xinter - m->p->x) * tan(ray->r_ang);
+	ray->xstep = TILES;
+	if (ray->r_lor == LEFT)
+		ray->xstep *= -1;
+	ray->ystep = TILES * tan(ray->r_ang);
+	if ((ray->r_dir == UP && ray->ystep > 0) || (ray->r_dir == DOWN && ray->ystep < 0))
+		ray->ystep *= -1;
+	ray->nextx = ray->xinter; 
+	ray->nexty = ray->yinter;
+}
+
+
 t_point verticalinter(t_mlx *m, float ang)
 {
 	t_point inter;
-	inter.hit = 0;
-	double xinter, yinter;
-	double xstep, ystep;
-	double xwall, ywall;
-	int hit = 0;
-	xwall = 0;
-	ywall = 0;
-	float r_angle = normalize_ang(ang);
-	int r_dir = upordown(r_angle);
-	int r_lor = leftorright(r_angle);
-
-	//FIND X-interseption
-	xinter = floor(m->p->x / TILES) * TILES;
-	if (r_lor == RIGHT)
-		xinter += TILES;
-	//FIND Y-interseption
-	yinter = m->p->y + (xinter - m->p->x) * tan(r_angle);
-	//find STEPS
-	//xstep
-	xstep = TILES;
-	if (r_lor == LEFT)
-		xstep *= -1;
-	//ystep
-	ystep = TILES * tan(r_angle);
-	if ((r_dir == UP && ystep > 0) || (r_dir == DOWN && ystep < 0))
-		ystep *= -1;
-	// next intersection
-	double nextx = xinter; 
-	double nexty = yinter;
-	//make sure that mf hits a wall
-	// loop untill it finds a wall or leaves canvas, increments with x and y step
-	while (nextx >= 0 && nexty >= 0 )
+	t_ray	ray;
+	set_initial_ray_values_ver(&ray, ang, m);
+	while (ray.nextx >= 0 && ray.nexty >= 0 )
 	{
-		if (has_wall(nextx - (r_lor == LEFT ? 1 : 0) , nexty, m))
+		if (has_wall(ray.nextx - (ray.r_lor == LEFT ? 1 : 0) , ray.nexty, m))
 		{
-			hit = 1; 
-			xwall = nextx;
-			ywall = nexty;
+			ray.xwall = ray.nextx;
+			ray.ywall = ray.nexty;
 			break;
 		}
 		else 
 		{
-			nextx += xstep;
-			nexty += ystep;
+			ray.nextx += ray.xstep;
+			ray.nexty += ray.ystep;
 		}
 	}
-	inter.x = xwall;
-	inter.y = ywall;
-	if (hit)
-	{
-		inter.hit = 0;
-		inter.dist2pl = distancebetween(m->p->x, m->p->y, xwall, ywall);
-		return(inter);
-	}
-	inter.dist2pl = INT_MAX;
+	inter.x = ray.xwall;
+	inter.y = ray.ywall;
+	inter.hit = 0;
+	inter.dist2pl = distancebetween(m->p->x, m->p->y, ray.xwall, ray.ywall);
 	return(inter);
+
 }

@@ -116,10 +116,19 @@ typedef struct	s_mlx {
 	t_map		*m;
 }				t_mlx;
 
-typedef struct s_data
-{
-	t_mlx		m;
-}				t_data;
+typedef struct s_ray{
+	double xinter;
+	double yinter;
+	double xstep;
+	double ystep;
+	float r_ang;
+	float r_dir;
+	float r_lor;
+	float xwall;
+	float ywall;
+	double nextx;
+	double nexty;
+}				t_ray;
 
 
 void 	init_libmlx(t_mlx *mlx);
