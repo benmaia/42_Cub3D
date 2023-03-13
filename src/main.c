@@ -12,8 +12,6 @@
 
 #include "../incs/Cub3d.h"
 
-void	display_grid(t_mlx *mlx);
-
 int	refresh_screen(t_mlx *mlx)
 {
 	cast_rays(mlx);
@@ -27,11 +25,8 @@ int	refresh_screen(t_mlx *mlx)
 int	main(int argc, char **argv)
 {
 	t_mlx	mlx;
-	int i = -1;
 
 	map_parser(argc, argv, &mlx);
-	while (mlx.m->minimap[++i])
-		printf("%s\n", mlx.m->minimap[i]);
 	init_libmlx(&mlx);
 	mlx.p = init_player(mlx.p, mlx.m);
 	refresh_screen(&mlx);

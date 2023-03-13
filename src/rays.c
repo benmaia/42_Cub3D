@@ -71,9 +71,7 @@ void cast_rays(t_mlx *m)
 		int y = drawStart;
         while (y < drawEnd)
         {
-            // Calculate textures[text] coordinate for current pixel (HEIGHT - line_height) / 2;
 			int tex_y = ((y - HEIGHT / 2 + lineheigth / 2) * m->textures[text].h) / lineheigth;            
-			// Retrieve pixel value from textures[text] image data
             char *tex_ptr = m->textures[text].addr + (tex_y * m->textures[text].line_len + tex_x * (m->textures[text].bpp / 8));
             int color = *(int *)tex_ptr;
 		    put_pixel_img(m, i, y, color);

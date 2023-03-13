@@ -70,31 +70,6 @@ void	mlx_line_to(t_mlx *mlx, int x1, int y1, int x2, int y2, int color)
 	}
 }
 
-void	display_grid(t_mlx *mlx)
-{
-	int	color;
-	int	cell_width;
-	int	cell_height;
-
-	int x, y;
-	color = rgb_to_int(0, 0, 0);
-	cell_width = (WIDTH * 0.25 / mlx->m->width);
-	cell_height = (HEIGHT * 0.25 / mlx->m->height);
-	for (y = 0; y < mlx->m->height; y++)
-	{
-		for (x = 0; x < mlx->m->width; x++)
-		{
-			mlx_line_to(mlx, x * cell_width, y * cell_height, (x + 1)
-				* cell_width, y * cell_height, color);
-			mlx_line_to(mlx, x * cell_width, (y + 1) * cell_height, (x + 1)
-				* cell_width, (y + 1) * cell_height, color);
-			mlx_line_to(mlx, x * cell_width, y * cell_height, x * cell_width, (y
-					+ 1) * cell_height, color);
-			mlx_line_to(mlx, (x + 1) * cell_width, y * cell_height, (x + 1)
-				* cell_width, (y + 1) * cell_height, color);
-		}
-	}
-}
 void	mlx_square(t_mlx *mlx, int x, int y, int size, int color)
 {
 	int	i;
@@ -113,7 +88,7 @@ void	mlx_square(t_mlx *mlx, int x, int y, int size, int color)
 	}
 }
 
-void	draw_map(t_mlx *mlx)
+int	draw_map(t_mlx *mlx)
 {
 	int	square_size;
 	int	x;
@@ -121,7 +96,7 @@ void	draw_map(t_mlx *mlx)
 	int	col;
 	int	row;
 
-	square_size = WIDTH * 0.25 / mlx->m->width;
+	square_size = mlx->m->width * TILES * 0.25 / mlx->m->width;
 	row = -1;
 	while (mlx->m->minimap[++row])
 	{
@@ -140,18 +115,19 @@ void	draw_map(t_mlx *mlx)
 				mlx_square(mlx, x, y, square_size, 0x00EFEF);
 		}
 	}
+	return(square_size);
 }
 
 void	displayMap(t_mlx *mlx)
 {
-	int	minimap_pos_x;
-	int	minimap_pos_y;
-
-	draw_map(mlx);
-	minimap_pos_x = WIDTH * 0.25 * mlx->p->x / WIDTH / 1.45;
-	minimap_pos_y = HEIGHT * 0.25 * mlx->p->y / HEIGHT / 1.45;
-	mlx_square(mlx, minimap_pos_x, minimap_pos_y, 4, 0x00);
-	mlx_line_to(mlx, minimap_pos_x, minimap_pos_y, minimap_pos_x + mlx->p->dx
+	double	minimap_pos_x;
+	double	minimap_pos_y;
+	int sq = draw_map(mlx);
+	float scale = (float)sq / (float)TILES;
+	minimap_pos_x = mlx->p->x * scale - sq / 8;
+	minimap_pos_y = mlx->p->y * scale - sq / 8;
+	mlx_square(mlx, minimap_pos_x , minimap_pos_y, sq / 2 , 0xFF0000);
+	mlx_line_to(mlx, minimap_pos_x + sq / 4 , minimap_pos_y + sq / 4, minimap_pos_x + mlx->p->dx
 		* 5, minimap_pos_y + mlx->p->dy * 5, rgb_to_int(255, 123, 11));
 	mlx_put_image_to_window(mlx->ptr, mlx->mlx_win, mlx->img, 0, 0);
 }
