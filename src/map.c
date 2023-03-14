@@ -96,7 +96,12 @@ int	draw_map(t_mlx *mlx)
 	int	col;
 	int	row;
 
-	square_size = mlx->m->width * TILES * 0.25 / mlx->m->width;
+	square_size = (int)(mlx->m->width * TILES * 0.25 / mlx->m->width);
+	int max_square_size = sqrt((WIDTH * HEIGHT) / 4) / mlx->m->width;
+	if (square_size > max_square_size)
+		square_size = max_square_size;
+	printf("%d\n", square_size);
+	printf("%d\n", max_square_size);
 	row = -1;
 	while (mlx->m->minimap[++row])
 	{
