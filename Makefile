@@ -1,8 +1,8 @@
 NAME	:=	cub3d
 
 CC		:=	gcc
-CFLAGS	:= 	-O3 -g -Wall -Wextra -Werror #-fsanitize=address -g
-
+CFLAGS	:= 	-O3 -g -Wall -Wextra -Werror  #-fsanitize=address -g
+OPTFLAGS := -ffast-math -ffinite-math-only
 PATH_SRC		:=	./src
 PATH_INCLUDES	:=	./incs
 PATH_BUILD		:= ./build
@@ -29,6 +29,7 @@ SRCS			:=	$(PATH_SRC)/main.c \
 					$(PATH_SRC)/parse_map.c \
 					$(PATH_SRC)/init_map.c \
 					$(PATH_SRC)/map_close.c \
+					$(PATH_SRC)/mlx_boosters.c \
 
 
 OBJ				:= $(subst .c,.o,$(subst $(PATH_SRC), $(PATH_OBJS), $(SRCS)))
@@ -36,7 +37,7 @@ OBJ				:= $(subst .c,.o,$(subst $(PATH_SRC), $(PATH_OBJS), $(SRCS)))
 all:$(NAME)
 
 $(NAME): $(MLX_L) $(OBJ)
-		@$(CC) $(CFLAGS) -o $(@) $^ -I$(PATH_INCLUDES) $(MLX_L) $(OBJS) -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz
+		@$(CC) $(CFLAGS) $(OPTFLAGS) -o $(@) $^ -I$(PATH_INCLUDES) $(MLX_L) $(OBJS) -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz
 		@printf "\033[44m[$(NAME) BUILT!]\033[0m\n"
 
 $(PATH_OBJS)/%.o: $(PATH_SRC)/%.c | $(PATH_BUILD)

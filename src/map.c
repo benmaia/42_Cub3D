@@ -12,81 +12,13 @@
 
 #include "../incs/Cub3d.h"
 
-void	img_pix_put(t_mlx *img, int x, int y, int color);
-int		draw_square(t_mlx *mlx, int z, int k, int size);
 
-int	normalizex(int x)
+int check_empty(char c)
 {
-	if (x < 0)
-		x = 0;
-	if (x > WIDTH)
-		x = WIDTH;
-	return (x);
-}
-
-int	normalizey(int x)
-{
-	if (x < 0)
-		x = 0;
-	if (x > HEIGHT)
-		x = HEIGHT;
-	return (x);
-}
-
-void	mlx_line_to(t_mlx *mlx, int x1, int y1, int x2, int y2, int color)
-{
-	int	dx;
-	int	dy;
-	int	sx;
-	int	sy;
-	int	err;
-	int	e2;
-
-	x1 = normalizex(x1);
-	x2 = normalizex(x2);
-	y1 = normalizey(y1);
-	y2 = normalizey(y2);
-	dx = abs(x2 - x1);
-	dy = abs(y2 - y1);
-	sx = (x1 < x2) ? 1 : -1;
-	sy = (y1 < y2) ? 1 : -1;
-	err = dx - dy;
-	while (1)
-	{
-		img_pix_put(mlx, x1, y1, color);
-		if (x1 == x2 && y1 == y2)
-			break ;
-		e2 = 2 * err;
-		if (e2 > -dy)
-		{
-			err -= dy;
-			x1 += sx;
-		}
-		if (e2 < dx)
-		{
-			err += dx;
-			y1 += sy;
-		}
-	}
-}
-
-void	mlx_square(t_mlx *mlx, int x, int y, int size, int color)
-{
-	int	i;
-	int	j;
-
-	i = x;
-	while (i < x + size)
-	{
-		j = y;
-		while (j < y + size)
-		{
-			img_pix_put(mlx, i, j, color);
-			j++;
-		}
-		i++;
-	}
-}
+	if (c == 'N' ||c == 'S' || c == 'W'|| c == 'E' || c == '0')
+		return(1);
+	return(0);
+}		
 
 int	draw_map(t_mlx *mlx)
 {
@@ -96,12 +28,7 @@ int	draw_map(t_mlx *mlx)
 	int	col;
 	int	row;
 
-	square_size = (int)(mlx->m->width * TILES * 0.25 / mlx->m->width);
-	int max_square_size = sqrt((WIDTH * HEIGHT) / 4) / mlx->m->width;
-	if (square_size > max_square_size)
-		square_size = max_square_size;
-	printf("%d\n", square_size);
-	printf("%d\n", max_square_size);
+	square_size = sqrt((WIDTH * HEIGHT) / 4) / mlx->m->width;;
 	row = -1;
 	while (mlx->m->minimap[++row])
 	{
@@ -112,12 +39,10 @@ int	draw_map(t_mlx *mlx)
 			y = row * square_size;
 			if (mlx->m->minimap[row][col] == '1')
 				mlx_square(mlx, x, y, square_size, 0x000000);
-			else if (mlx->m->minimap[row][col] == '0')
+			else if (check_empty(mlx->m->minimap[row][col]))
 				mlx_square(mlx, x, y, square_size, 0xFFFFFF);
-			else if (mlx->m->minimap[row][col] == 'N')
-				mlx_square(mlx, x, y, square_size, 0xDDFF00);
 			else
-				mlx_square(mlx, x, y, square_size, 0x00EFEF);
+				continue;
 		}
 	}
 	return(square_size);
@@ -127,12 +52,14 @@ void	displayMap(t_mlx *mlx)
 {
 	double	minimap_pos_x;
 	double	minimap_pos_y;
-	int sq = draw_map(mlx);
-	float scale = (float)sq / (float)TILES;
+	int sq;
+	float scale;
+	sq = draw_map(mlx);
+	scale = (float)sq / (float)TILES;
 	minimap_pos_x = mlx->p->x * scale - sq / 8;
 	minimap_pos_y = mlx->p->y * scale - sq / 8;
 	mlx_square(mlx, minimap_pos_x , minimap_pos_y, sq / 2 , 0xFF0000);
-	mlx_line_to(mlx, minimap_pos_x + sq / 4 , minimap_pos_y + sq / 4, minimap_pos_x + mlx->p->dx
+	mlx_line_to(mlx, minimap_pos_x + sq /8 , minimap_pos_y + sq / 8, minimap_pos_x + mlx->p->dx
 		* 5, minimap_pos_y + mlx->p->dy * 5, rgb_to_int(255, 123, 11));
 	mlx_put_image_to_window(mlx->ptr, mlx->mlx_win, mlx->img, 0, 0);
 }

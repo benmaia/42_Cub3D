@@ -15,8 +15,9 @@
 int	refresh_screen(t_mlx *mlx)
 {
 	cast_rays(mlx);
-	displayMap(mlx);
 	render_gun(mlx);
+	if (mlx->map_enabled)
+		displayMap(mlx);
 	mlx_put_image_to_window(mlx->ptr, mlx->mlx_win, mlx->img, 0, 0);
 	mlx_do_sync(mlx->ptr);
 	return (0);

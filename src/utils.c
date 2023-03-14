@@ -96,3 +96,13 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	new[i] = '\0';
 	return (new);
 }
+
+unsigned int	ft_strlen(char const *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+		i++;
+	return (i);
+}

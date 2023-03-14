@@ -97,4 +97,5 @@ void	init_libmlx(t_mlx *mlx)
 	mlx_hook(mlx->mlx_win, 17, (1L << 17), ft_exit, mlx);
 	mlx_mouse_hide(mlx->ptr, mlx->mlx_win);
 	load_textures(mlx);
+	mlx->map_enabled = 0;
 }

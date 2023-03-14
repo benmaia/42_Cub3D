@@ -9,6 +9,7 @@
 #	define 	RIGHT_KEY 65363
 #	define 	LEFT_KEY 65361
 #	define 	DOWN_KEY 65364
+#	define 	M_KEY 109
 #	define 	ESC 65307
 #	define 	ON_MOUSEDOWN 4
 #	define	ON_MOUSEUP 5
@@ -18,7 +19,6 @@
 #	define UP 1
 #	define LEFT 2
 #	define RIGHT 3
-
 
 #	define NORTH 0
 #	define SOUTH 1
@@ -31,7 +31,7 @@
 #	define SPEED 5
 #	define TILES 34
 
-#	define FOV M_PI / 3
+#	define FOV 1.0471975512
 
 #	include <math.h>
 #	include <stdio.h>
@@ -109,7 +109,7 @@ typedef struct	s_mlx {
 	int 	squarey;
 	int		win_x;
 	int		win_y;
-	int 	**map;
+	int 	map_enabled;
 	t_image		textures[4];
 	t_image		guntexture;
 	t_player	*p;
@@ -173,10 +173,10 @@ void	parse_colors(t_mlx *g);
 void	parse_values(t_mlx *g);
 bool	is_texture_path_valid(char *path);
 void	parse_map(t_mlx *g);
-void init_map_struct(t_mlx *g);
-void free_map(t_mlx *g);
-void wrong_map(t_mlx *g);
-void map_close(t_mlx *g);
+void 	init_map_struct(t_mlx *g);
+void 	free_map(t_mlx *g);
+void 	wrong_map(t_mlx *g);
+void 	map_close(t_mlx *g);
 char	*ft_strcpy(char *dest, char *src);
 void	*ft_memset(void *str, int c, size_t count);
 void	*ft_calloc(size_t n, size_t size);
