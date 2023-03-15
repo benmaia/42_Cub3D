@@ -58,16 +58,16 @@ void	mlx_line_to(t_mlx *mlx, int x1, int y1, int x2, int y2, int color)
 	}
 }
 
-void	mlx_square(t_mlx *mlx, int x, int y, int size, int color)
+void	mlx_square(t_mlx *mlx, t_point point, int size, int color)
 {
 	int	i;
 	int	j;
 
-	i = x;
-	while (i < x + size)
+	i = point.x;
+	while (i < point.x + size)
 	{
-		j = y;
-		while (j < y + size)
+		j = point.y;
+		while (j < point.y + size)
 		{
 			img_pix_put(mlx, i, j, color);
 			j++;
@@ -76,10 +76,11 @@ void	mlx_square(t_mlx *mlx, int x, int y, int size, int color)
 	}
 }
 
-int mouse_hook(int x, int y, t_mlx *mlx)
+int	mouse_hook(int x, int y, t_mlx *mlx)
 {
+	float	rot_amt;
+
 	(void)y;
-	float		rot_amt;
 	if (x - WIDTH / 2 > (WIDTH / 50) || x - WIDTH / 2 < -(WIDTH / 50))
 	{
 		rot_amt = 0.0225;
@@ -88,18 +89,19 @@ int mouse_hook(int x, int y, t_mlx *mlx)
 		mlx->p->ang = normalize_ang(rot_amt * 1.1 + mlx->p->ang);
 		mlx->p->dx = cos(mlx->p->ang) * 5;
 		mlx->p->dy = sin(mlx->p->ang) * 5;
-		mlx_mouse_move(mlx->ptr, mlx->mlx_win ,WIDTH / 2, HEIGHT / 2);
+		mlx_mouse_move(mlx->ptr, mlx->mlx_win, WIDTH / 2, HEIGHT / 2);
 		refresh_screen(mlx);
-		return(0);
+		return (0);
 	}
-	return(0);
+	return (0);
 }
 
 void	put_pixel_img(t_mlx *data, int x, int y, int color)
 {
 	char	*dst;
-    if (color == 0xFF00FF)
-		return;
+
+	if (color == 0xFF00FF)
+		return ;
 	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
-	*(unsigned int *) dst = color;
+	*(unsigned int *)dst = color;
 }
