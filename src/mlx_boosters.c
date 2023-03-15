@@ -21,7 +21,7 @@ int	normalizey(int x)
 	return (x);
 }
 
-void	mlx_line_to(t_mlx *mlx, int x1, int y1, int x2, int y2, int color)
+void	mlx_line_to(t_mlx *mlx, t_point start, t_point end, int color)
 {
 	int	dx;
 	int	dy;
@@ -30,30 +30,30 @@ void	mlx_line_to(t_mlx *mlx, int x1, int y1, int x2, int y2, int color)
 	int	err;
 	int	e2;
 
-	x1 = normalizex(x1);
-	x2 = normalizex(x2);
-	y1 = normalizey(y1);
-	y2 = normalizey(y2);
-	dx = abs(x2 - x1);
-	dy = abs(y2 - y1);
-	sx = (x1 < x2) ? 1 : -1;
-	sy = (y1 < y2) ? 1 : -1;
+	start.x = normalizex(start.x);
+	end.x = normalizex(end.x);
+	start.y = normalizey(start.y);
+	end.y = normalizey(end.y);
+	dx = abs((int)end.x - (int)start.x);
+	dy = abs((int)end.y - (int)start.y);
+	sx = (start.x < end.x) ? 1 : -1;
+	sy = (start.y < end.y) ? 1 : -1;
 	err = dx - dy;
 	while (1)
 	{
-		img_pix_put(mlx, x1, y1, color);
-		if (x1 == x2 && y1 == y2)
+		img_pix_put(mlx, start.x, start.y, color);
+		if (start.x == end.x && start.y == end.y)
 			break ;
 		e2 = 2 * err;
 		if (e2 > -dy)
 		{
 			err -= dy;
-			x1 += sx;
+			start.x += sx;
 		}
 		if (e2 < dx)
 		{
 			err += dx;
-			y1 += sy;
+			start.y += sy;
 		}
 	}
 }

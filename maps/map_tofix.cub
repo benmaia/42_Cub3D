@@ -1,10 +1,10 @@
-NO ./assets/siding0.xpm
+NO ./assets/siding4.xpm
 SO ./assets/sidetext1.xpm
-WE ./assets/siding4.xpm
+WE ./assets/sidetext2.xpm
 EA ./assets/sidetext3.xpm
 
 F 220,250,230
-C 25,130,79
+C 0,0,0
 
 1111111111111111111111111111111111111
 1000000000000000000000000000000000001

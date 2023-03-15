@@ -1,13 +1,25 @@
-#include "../incs/Cub3d.h"
-#include <math.h>
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   movement.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dmarceli <dmarceli@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/03/15 15:40:32 by dmarceli          #+#    #+#             */
+/*   Updated: 2023/03/15 15:42:57 by dmarceli         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-int		has_wall(double x, double y, t_mlx *mlx)
+#include "../incs/Cub3d.h"
+
+int	has_wall(double x, double y, t_mlx *mlx)
 {
 	int		mapgridx;
 	int		mapgridy;
+
 	if ((int)x < 0 || (int)y < 0)
 		return (1);
-	mapgridx = floor(x/ TILES);
+	mapgridx = floor(x / TILES);
 	mapgridy = floor(y / TILES);
 	if (mapgridx >= mlx->m->width || mapgridy >= mlx->m->height)
 		return (2);
@@ -16,22 +28,25 @@ int		has_wall(double x, double y, t_mlx *mlx)
 	return (0);
 }
 
-void move_up_and_down(int keycode, t_mlx *mlx)
+void	move_up_and_down(int keycode, t_mlx *mlx)
 {
-	if (keycode == W_KEY || keycode == UP_KEY )
+	double	npx;
+	double	npy;
+
+	if (keycode == W_KEY || keycode == UP_KEY)
 	{
-		double npx = mlx->p->x + mlx->p->dx * 0.5;
-		double npy = mlx->p->y + mlx->p->dy * 0.5;
+		npx = mlx->p->x + mlx->p->dx * 0.5;
+		npy = mlx->p->y + mlx->p->dy * 0.5;
 		if (!has_wall(npx, npy, mlx))
 		{
 			mlx->p->x += mlx->p->dx * 0.5;
 			mlx->p->y += mlx->p->dy * 0.5;
 		}
 	}
-	else if (keycode == S_KEY || keycode == DOWN_KEY)	
+	else if (keycode == S_KEY || keycode == DOWN_KEY)
 	{
-		double npx = mlx->p->x - mlx->p->dx * 0.5;
-		double npy = mlx->p->y - mlx->p->dy * 0.5;
+		npx = mlx->p->x - mlx->p->dx * 0.5;
+		npy = mlx->p->y - mlx->p->dy * 0.5;
 		if (!has_wall(npx, npy, mlx))
 		{
 			mlx->p->x -= mlx->p->dx * 0.5;
@@ -40,13 +55,17 @@ void move_up_and_down(int keycode, t_mlx *mlx)
 	}
 }
 
-void move_left_and_right(int keycode, t_mlx *mlx)
+void	move_left_and_right(int keycode, t_mlx *mlx)
 {
+	double	angle;
+	double	npx;
+	double	npy;
+
 	if (keycode == D_KEY)
 	{
-		double angle = mlx->p->ang + M_PI_2;
-		double npx = mlx->p->x + cos(angle) * 2;
-		double npy = mlx->p->y + sin(angle) * 2;
+		angle = mlx->p->ang + M_PI_2;
+		npx = mlx->p->x + cos(angle) * 2;
+		npy = mlx->p->y + sin(angle) * 2;
 		if (!has_wall(npx, npy, mlx))
 		{
 			mlx->p->x += cos(angle) * 2;
@@ -55,9 +74,9 @@ void move_left_and_right(int keycode, t_mlx *mlx)
 	}
 	else if (keycode == A_KEY)
 	{
-		double angle = mlx->p->ang - M_PI_2;
-		double npx = mlx->p->x + cos(angle) * 2;
-		double npy = mlx->p->y + sin(angle) * 2;
+		angle = mlx->p->ang - M_PI_2;
+		npx = mlx->p->x + cos(angle) * 2;
+		npy = mlx->p->y + sin(angle) * 2;
 		if (!has_wall(npx, npy, mlx))
 		{
 			mlx->p->x += cos(angle) * 2;

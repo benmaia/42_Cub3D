@@ -146,11 +146,10 @@ int				refresh_screen(t_mlx *mlx);
 void			img_pix_put(t_mlx *img, int x, int y, int color);
 int				rgb_to_int(int r, int g, int b);
 int				key_hook(int keycode, t_mlx *mlx);
-void			displayMap(t_mlx *mlx);
+void			displaymap(t_mlx *mlx);
 void			mlx_square(t_mlx *mlx, t_point point, int size, int color);
 int				mouse_hook(int x, int y, t_mlx *mlx);
-void			mlx_line_to(t_mlx *mlx, int x1, int y1, int x2, int y2,
-					int color);
+void			mlx_line_to(t_mlx *mlx, t_point start, t_point end, int color);
 void			cast_rays(t_mlx *m);
 int				has_wall(double x, double y, t_mlx *a);
 float			normalize_ang(float angle);

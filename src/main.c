@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bmiguel- <bmiguel-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dmarceli <dmarceli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/11 15:07:57 by bmiguel-          #+#    #+#             */
-/*   Updated: 2023/03/12 13:04:33 by bmiguel-         ###   ########.fr       */
+/*   Updated: 2023/03/15 15:31:26 by dmarceli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	refresh_screen(t_mlx *mlx)
 	cast_rays(mlx);
 	render_gun(mlx);
 	if (mlx->map_enabled)
-		displayMap(mlx);
+		displaymap(mlx);
 	mlx_put_image_to_window(mlx->ptr, mlx->mlx_win, mlx->img, 0, 0);
 	mlx_do_sync(mlx->ptr);
 	return (0);

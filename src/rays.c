@@ -13,10 +13,24 @@ t_point calc_rays(t_mlx *m, float ang)
 
 void render_floor(t_mlx *mlx,int i ,int end, int start)
 {
+	t_point starting;
+	t_point ending;
 	if (end != HEIGHT)
-		mlx_line_to(mlx, i, end, i, HEIGHT, mlx->m->floor_color);
+	{
+		starting.x = i;
+		starting.y = end;
+		ending.x = i;
+		ending.y = HEIGHT;
+		mlx_line_to(mlx, starting, ending, mlx->m->floor_color);
+	}
 	if (start != 0)
-		mlx_line_to(mlx, i, start, i, 0, mlx->m->sky_color);
+	{
+		starting.x = i;
+		starting.y = start;
+		ending.x = i;
+		ending.y = 0;
+		mlx_line_to(mlx, starting, ending, mlx->m->sky_color);
+	}
 }
 
 int pick_texture(t_point close, float ang)
