@@ -6,7 +6,7 @@
 /*   By: dmarceli <dmarceli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 20:27:51 by bmiguel-          #+#    #+#             */
-/*   Updated: 2023/03/15 20:44:44 by dmarceli         ###   ########.fr       */
+/*   Updated: 2023/03/15 20:56:19 by bmiguel-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -222,6 +222,6 @@ int				ft_ternarie(float dir, int macro);
 void			draw3dline(t_line l, t_mlx *m, int i);
 void			set_raycasting_values(t_line *l, t_mlx *m);
 void			render_floor(t_mlx *mlx, int i, int end, int start);
-void	map_valid(t_mlx *g);
+void			map_valid(t_mlx *g);
 
 #endif
