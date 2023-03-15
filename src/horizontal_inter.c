@@ -6,7 +6,7 @@
 /*   By: bmiguel- <bmiguel-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 10:38:46 by bmiguel-          #+#    #+#             */
-/*   Updated: 2023/03/15 10:38:47 by bmiguel-         ###   ########.fr       */
+/*   Updated: 2023/03/15 17:19:30 by bmiguel-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,13 @@ void	set_initial_ray_values(t_ray *ray, float ang, t_mlx *m)
 	ray->nexty = ray->yinter;
 }
 
+int	ft_ternarie(float dir, int macro)
+{
+	if (dir == macro)
+		return (1);
+	return (0);
+}
+
 t_point	horizontalinter(t_mlx *m, float ang)
 {
 	t_point	inter;
@@ -42,7 +49,7 @@ t_point	horizontalinter(t_mlx *m, float ang)
 	set_initial_ray_values(&ray, ang, m);
 	while (ray.nextx >= 0 && ray.nexty >= 0)
 	{
-		if (has_wall(ray.nextx, ray.nexty - (ray.r_dir == UP ? 1 : 0), m))
+		if (has_wall(ray.nextx, ray.nexty - ft_ternarie(ray.r_dir, UP), m))
 		{
 			ray.xwall = ray.nextx;
 			ray.ywall = ray.nexty;

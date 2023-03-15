@@ -6,7 +6,7 @@
 /*   By: dmarceli <dmarceli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 15:35:34 by dmarceli          #+#    #+#             */
-/*   Updated: 2023/03/15 15:39:43 by dmarceli         ###   ########.fr       */
+/*   Updated: 2023/03/15 17:21:39 by bmiguel-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ t_point	verticalinter(t_mlx *m, float ang)
 	set_initial_ray_values_ver(&ray, ang, m);
 	while (ray.nextx >= 0 && ray.nexty >= 0)
 	{
-		if (has_wall(ray.nextx - (ray.r_lor == LEFT ? 1 : 0), ray.nexty, m))
+		if (has_wall(ray.nextx - ft_ternarie(ray.r_lor, LEFT), ray.nexty, m))
 		{
 			ray.xwall = ray.nextx;
 			ray.ywall = ray.nexty;

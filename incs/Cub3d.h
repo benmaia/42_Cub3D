@@ -204,5 +204,7 @@ void			map_close(t_mlx *g);
 char			*ft_strcpy(char *dest, char *src);
 void			*ft_memset(void *str, int c, size_t count);
 void			*ft_calloc(size_t n, size_t size);
+int			set_line_ter(int start, int end);
+int	ft_ternarie(float dir, int macro);
 
 #endif

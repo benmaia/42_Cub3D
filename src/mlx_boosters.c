@@ -6,7 +6,7 @@
 /*   By: dmarceli <dmarceli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 16:15:02 by dmarceli          #+#    #+#             */
-/*   Updated: 2023/03/15 16:23:15 by dmarceli         ###   ########.fr       */
+/*   Updated: 2023/03/15 17:12:54 by bmiguel-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,8 @@ void	set_line_values(t_drawline *l, t_point *start, t_point *end)
 	end->y = normalizey(end->y);
 	l->dx = abs((int)end->x - (int)start->x);
 	l->dy = abs((int)end->y - (int)start->y);
-	l->sx = (start->x < end->x) ? 1 : -1;
-	l->sy = (start->y < end->y) ? 1 : -1;
+	l->sx = set_line_ter(start->x, end->x);
+	l->sy = set_line_ter(start->y, end->y);
 	l->err = l->dx - l->dy;
 }
 
