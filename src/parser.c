@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bmiguel- <bmiguel-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dmarceli <dmarceli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 18:44:30 by bmiguel-          #+#    #+#             */
-/*   Updated: 2023/03/11 23:18:31 by bmiguel-         ###   ########.fr       */
+/*   Updated: 2023/03/15 20:44:23 by dmarceli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,7 @@ void	map_parser(int argc, char **argv, t_mlx *g)
 		wrong_map(g);
 	read_map(g);
 	parse_values(g);
+	map_valid(g);
 	parse_map(g);
 	if (!check_map_playble(g) || g->m->players != 1)
 		wrong_map(g);

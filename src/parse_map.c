@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bmiguel- <bmiguel-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dmarceli <dmarceli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 22:04:08 by bmiguel-          #+#    #+#             */
-/*   Updated: 2023/03/11 14:36:58 by bmiguel-         ###   ########.fr       */
+/*   Updated: 2023/03/15 20:56:04 by bmiguel-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,4 +33,21 @@ void	parse_map(t_mlx *g)
 	while (g->m->cub[x])
 		g->m->map[i++] = ft_strdup(g->m->cub[x++]);
 	g->m->map[i] = NULL;
+}
+
+void	map_valid(t_mlx *g)
+{
+	int	i;
+
+	i = -1;
+	while (g->m->cub[++i])
+	{
+		if (ft_strncmp(g->m->cub[i], "NO ", 3) && ft_strncmp(g->m->cub[i],
+				"SO ", 3) && ft_strncmp(g->m->cub[i], "WE ", 3)
+			&& ft_strncmp(g->m->cub[i], "EA ", 3) && ft_strncmp(g->m->cub[i],
+				"F ", 2) && ft_strncmp(g->m->cub[i], "C ", 2)
+			&& ft_strcmp(g->m->cub[i], "\n"))
+			if (g->m->cub[i][0] != '1' && g->m->cub[i][0] != ' ')
+				wrong_map(g);
+	}
 }
