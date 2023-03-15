@@ -69,13 +69,6 @@ typedef struct s_point{
 	int hit;
 }				t_point;
 
-typedef struct	s_line
-{
-	t_point		start;
-	t_point		end;
-	int			color;
-}				t_line;
-
 typedef struct s_player{
 	double x;
 	double y;
@@ -130,6 +123,17 @@ typedef struct s_ray{
 	double nexty;
 }				t_ray;
 
+typedef struct s_line{
+	int tex_x;
+	t_point close;
+	float pjc;
+	float r_angle;
+	int lineheigth;
+	int drawStart;
+	int drawEnd;
+	int text;
+}				t_line;
+
 
 void 	init_libmlx(t_mlx *mlx);
 t_player *init_player(t_player *player, t_map *map);
@@ -152,7 +156,7 @@ t_point horizontalinter(t_mlx *m, float ang);
 t_point verticalinter(t_mlx *m, float ang);
 void render_gun(t_mlx *mlx);
 int	ft_exit(t_mlx *mlx);
-
+void	put_pixel_img(t_mlx *data, int x, int y, int color);
 /*############## UTILS ###############*/
 
 

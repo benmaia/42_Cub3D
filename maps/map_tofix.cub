@@ -1,7 +1,7 @@
 NO ./assets/siding0.xpm
-SO ./assets/siding1.xpm
-WE ./assets/siding2.xpm
-EA ./assets/siding3.xpm
+SO ./assets/sidetext1.xpm
+WE ./assets/siding4.xpm
+EA ./assets/sidetext3.xpm
 
 F 220,250,230
 C 25,130,79

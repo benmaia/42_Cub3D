@@ -2,7 +2,7 @@ NAME	:=	cub3d
 
 CC		:=	gcc
 CFLAGS	:= 	-O3 -g -Wall -Wextra -Werror  #-fsanitize=address -g
-OPTFLAGS := -ffast-math -ffinite-math-only
+OPTFLAGS := -ffast-math -ffinite-math-only -flto
 PATH_SRC		:=	./src
 PATH_INCLUDES	:=	./incs
 PATH_BUILD		:= ./build

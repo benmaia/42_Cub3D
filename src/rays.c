@@ -19,15 +19,6 @@ void render_floor(t_mlx *mlx,int i ,int end, int start)
 		mlx_line_to(mlx, i, start, i, 0, mlx->m->sky_color);
 }
 
-void	put_pixel_img(t_mlx *data, int x, int y, int color)
-{
-	char	*dst;
-    if (color == 0xFF00FF || color == 0x182c2e)
-		return;
-	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
-	*(unsigned int *) dst = color;
-}
-
 int pick_texture(t_point close, float ang)
 {
 	ang = normalize_ang(ang);
@@ -46,38 +37,53 @@ int pick_texture(t_point close, float ang)
 			return 3;
 	}
 }
+
+void set_raycasting_values(t_line *l, t_mlx *m)
+{
+	l->close = calc_rays(m, l->r_angle);
+	l->pjc = cos(normalize_ang(l->r_angle - m->p->ang)) * l->close.dist2pl * 2;
+	l->lineheigth = (m->win_x / l->pjc) * 60; 
+	l->drawStart = -l->lineheigth / 2 + m->win_x / 2;
+	if(l->drawStart< 0)
+		l->drawStart = 0;
+	l->drawEnd = l->lineheigth / 2 + m->win_x / 2;
+	if(l->drawEnd >= m->win_x)
+		l->drawEnd = m->win_x - 1;
+	l->text = pick_texture(l->close, l->r_angle);
+	if (l->close.hit)
+		l->tex_x = (int)l->close.x * m->textures[l->text].w / 34 % m->textures[l->text].w;
+	else
+		l->tex_x = (int)l->close.y * m->textures[l->text].h / 34 % m->textures[l->text].h;
+}
+
+void draw3dline(t_line l, t_mlx *m, int i)
+{
+	int y;
+	int tex_y;
+	char *tex_ptr;
+	int color;
+	y = l.drawStart;
+	while (y < l.drawEnd)
+	{
+		tex_y = ((y - m->win_x / 2 + l.lineheigth / 2) * m->textures[l.text].h) / l.lineheigth;            
+		tex_ptr = m->textures[l.text].addr + (tex_y * m->textures[l.text].line_len + l.tex_x * (m->textures[l.text].bpp / 8));
+		color = *(int *)tex_ptr;
+		put_pixel_img(m, i, y, color);
+		y++;
+	}
+}
+
 void cast_rays(t_mlx *m)
 {
+	t_line	l;
 	int i;
 	i = -1;
-	float r_angle = m->p->ang - (FOV / 2);
-	while(++i < WIDTH)
+	l.r_angle = m->p->ang - (FOV / 2);
+	while(++i < m->win_x)
 	{
-		int tex_x;
-		t_point close = calc_rays(m, r_angle);
-		float pjc = cos(normalize_ang(r_angle - m->p->ang)) * close.dist2pl * 2;
-		int lineheigth = (HEIGHT / pjc) * 60; 
-    	int drawStart = -lineheigth / 2 + HEIGHT / 2;
-      	if(drawStart < 0)
-			drawStart = 0;
-    	int drawEnd = lineheigth / 2 + HEIGHT / 2;
-      	if(drawEnd >= HEIGHT)
-			drawEnd = HEIGHT - 1;
-		int text = pick_texture(close, r_angle);
-		if (close.hit)
-            tex_x = (int)close.x * m->textures[text].w / TILES % m->textures[text].w;
-      else
-            tex_x = (int)close.y * m->textures[text].h / TILES % m->textures[text].h;
-		int y = drawStart;
-        while (y < drawEnd)
-        {
-			int tex_y = ((y - HEIGHT / 2 + lineheigth / 2) * m->textures[text].h) / lineheigth;            
-            char *tex_ptr = m->textures[text].addr + (tex_y * m->textures[text].line_len + tex_x * (m->textures[text].bpp / 8));
-            int color = *(int *)tex_ptr;
-		    put_pixel_img(m, i, y, color);
-            y++;
-        }
-		render_floor(m, i,drawEnd, drawStart);
-		r_angle += (FOV / WIDTH);
+		set_raycasting_values(&l, m);
+		draw3dline(l, m, i);
+		render_floor(m, i,l.drawEnd, l.drawStart);
+		l.r_angle += (FOV / m->win_x);
 	}
 }

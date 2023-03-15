@@ -50,16 +50,16 @@ int	draw_map(t_mlx *mlx)
 
 void	displayMap(t_mlx *mlx)
 {
-	double	minimap_pos_x;
-	double	minimap_pos_y;
+	t_point map_player;
 	int sq;
 	float scale;
+
 	sq = draw_map(mlx);
 	scale = (float)sq / (float)TILES;
-	minimap_pos_x = mlx->p->x * scale - sq / 8;
-	minimap_pos_y = mlx->p->y * scale - sq / 8;
-	mlx_square(mlx, minimap_pos_x , minimap_pos_y, sq / 2 , 0xFF0000);
-	mlx_line_to(mlx, minimap_pos_x + sq /8 , minimap_pos_y + sq / 8, minimap_pos_x + mlx->p->dx
-		* 5, minimap_pos_y + mlx->p->dy * 5, rgb_to_int(255, 123, 11));
+	map_player.x = mlx->p->x * scale - sq / 4;
+	map_player.y = mlx->p->y * scale - sq / 4;
+	mlx_square(mlx, map_player.x , map_player.y, sq / 2 , 0xFF0000);
+	mlx_line_to(mlx, map_player.x + sq /4 , map_player.y + sq / 4, map_player.x + mlx->p->dx
+		* 5, map_player.y + mlx->p->dy * 5, 0xFF0000);
 	mlx_put_image_to_window(mlx->ptr, mlx->mlx_win, mlx->img, 0, 0);
 }

@@ -88,9 +88,18 @@ int mouse_hook(int x, int y, t_mlx *mlx)
 		mlx->p->ang = normalize_ang(rot_amt * 1.1 + mlx->p->ang);
 		mlx->p->dx = cos(mlx->p->ang) * 5;
 		mlx->p->dy = sin(mlx->p->ang) * 5;
-		refresh_screen(mlx);
 		mlx_mouse_move(mlx->ptr, mlx->mlx_win ,WIDTH / 2, HEIGHT / 2);
+		refresh_screen(mlx);
 		return(0);
 	}
 	return(0);
+}
+
+void	put_pixel_img(t_mlx *data, int x, int y, int color)
+{
+	char	*dst;
+    if (color == 0xFF00FF)
+		return;
+	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
+	*(unsigned int *) dst = color;
 }
