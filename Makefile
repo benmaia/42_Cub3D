@@ -30,7 +30,7 @@ SRCS			:=	$(PATH_SRC)/main.c \
 					$(PATH_SRC)/init_map.c \
 					$(PATH_SRC)/map_close.c \
 					$(PATH_SRC)/mlx_boosters.c \
-
+					$(PATH_SRC)/keyhook.c \
 
 OBJ				:= $(subst .c,.o,$(subst $(PATH_SRC), $(PATH_OBJS), $(SRCS)))
 

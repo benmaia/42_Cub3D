@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   mlx_boosters.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dmarceli <dmarceli@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/03/15 16:15:02 by dmarceli          #+#    #+#             */
+/*   Updated: 2023/03/15 16:23:15 by dmarceli         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../incs/Cub3d.h"
 
 void	img_pix_put(t_mlx *img, int x, int y, int color);
@@ -21,39 +33,39 @@ int	normalizey(int x)
 	return (x);
 }
 
+void	set_line_values(t_drawline *l, t_point *start, t_point *end)
+{
+	start->x = normalizex(start->x);
+	end->x = normalizex(end->x);
+	start->y = normalizey(start->y);
+	end->y = normalizey(end->y);
+	l->dx = abs((int)end->x - (int)start->x);
+	l->dy = abs((int)end->y - (int)start->y);
+	l->sx = (start->x < end->x) ? 1 : -1;
+	l->sy = (start->y < end->y) ? 1 : -1;
+	l->err = l->dx - l->dy;
+}
+
 void	mlx_line_to(t_mlx *mlx, t_point start, t_point end, int color)
 {
-	int	dx;
-	int	dy;
-	int	sx;
-	int	sy;
-	int	err;
-	int	e2;
+	t_drawline	l;
 
-	start.x = normalizex(start.x);
-	end.x = normalizex(end.x);
-	start.y = normalizey(start.y);
-	end.y = normalizey(end.y);
-	dx = abs((int)end.x - (int)start.x);
-	dy = abs((int)end.y - (int)start.y);
-	sx = (start.x < end.x) ? 1 : -1;
-	sy = (start.y < end.y) ? 1 : -1;
-	err = dx - dy;
+	set_line_values(&l, &start, &end);
 	while (1)
 	{
 		img_pix_put(mlx, start.x, start.y, color);
 		if (start.x == end.x && start.y == end.y)
 			break ;
-		e2 = 2 * err;
-		if (e2 > -dy)
+		l.e2 = 2 * l.err;
+		if (l.e2 > -l.dy)
 		{
-			err -= dy;
-			start.x += sx;
+			l.err -= l.dy;
+			start.x += l.sx;
 		}
-		if (e2 < dx)
+		if (l.e2 < l.dx)
 		{
-			err += dx;
-			start.y += sy;
+			l.err += l.dx;
+			start.y += l.sy;
 		}
 	}
 }
@@ -74,34 +86,4 @@ void	mlx_square(t_mlx *mlx, t_point point, int size, int color)
 		}
 		i++;
 	}
-}
-
-int	mouse_hook(int x, int y, t_mlx *mlx)
-{
-	float	rot_amt;
-
-	(void)y;
-	if (x - WIDTH / 2 > (WIDTH / 50) || x - WIDTH / 2 < -(WIDTH / 50))
-	{
-		rot_amt = 0.0225;
-		if (x - WIDTH / 2 < 0)
-			rot_amt = -rot_amt;
-		mlx->p->ang = normalize_ang(rot_amt * 1.1 + mlx->p->ang);
-		mlx->p->dx = cos(mlx->p->ang) * 5;
-		mlx->p->dy = sin(mlx->p->ang) * 5;
-		mlx_mouse_move(mlx->ptr, mlx->mlx_win, WIDTH / 2, HEIGHT / 2);
-		refresh_screen(mlx);
-		return (0);
-	}
-	return (0);
-}
-
-void	put_pixel_img(t_mlx *data, int x, int y, int color)
-{
-	char	*dst;
-
-	if (color == 0xFF00FF)
-		return ;
-	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
-	*(unsigned int *)dst = color;
 }

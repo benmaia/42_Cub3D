@@ -6,7 +6,7 @@
 /*   By: dmarceli <dmarceli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 15:40:32 by dmarceli          #+#    #+#             */
-/*   Updated: 2023/03/15 15:42:57 by dmarceli         ###   ########.fr       */
+/*   Updated: 2023/03/15 16:14:00 by dmarceli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,31 +62,19 @@ void	move_left_and_right(int keycode, t_mlx *mlx)
 	double	npy;
 
 	if (keycode == D_KEY)
-	{
 		angle = mlx->p->ang + M_PI_2;
-		npx = mlx->p->x + cos(angle) * 2;
-		npy = mlx->p->y + sin(angle) * 2;
-		if (!has_wall(npx, npy, mlx))
-		{
-			mlx->p->x += cos(angle) * 2;
-			mlx->p->y += sin(angle) * 2;
-		}
-	}
-	else if (keycode == A_KEY)
-	{
+	else
 		angle = mlx->p->ang - M_PI_2;
-		npx = mlx->p->x + cos(angle) * 2;
-		npy = mlx->p->y + sin(angle) * 2;
-		if (!has_wall(npx, npy, mlx))
-		{
-			mlx->p->x += cos(angle) * 2;
-			mlx->p->y += sin(angle) * 2;
-		}
+	npx = mlx->p->x + cos(angle) * 2;
+	npy = mlx->p->y + sin(angle) * 2;
+	if (!has_wall(npx, npy, mlx))
+	{
+		mlx->p->x += cos(angle) * 2;
+		mlx->p->y += sin(angle) * 2;
 	}
 }
 
-
-void look_left_and_right(int keycode, t_mlx *mlx)
+void	look_left_and_right(int keycode, t_mlx *mlx)
 {
 	if (keycode == LEFT_KEY)
 	{	
@@ -106,28 +94,10 @@ void look_left_and_right(int keycode, t_mlx *mlx)
 	}
 }
 
-void change_map_status(t_mlx *mlx)
+void	change_map_status(t_mlx *mlx)
 {
 	if (mlx->map_enabled)
 		mlx->map_enabled = 0;
 	else
 		mlx->map_enabled = 1;
 }
-
-int	key_hook(int keycode,t_mlx *mlx)
-{
-	if (keycode == 65307)
-		ft_exit(mlx);
-	else if (keycode == W_KEY || keycode == S_KEY || keycode == DOWN_KEY || keycode == UP_KEY )
-		move_up_and_down(keycode, mlx);
-	else if (keycode == D_KEY || keycode == A_KEY )
-		move_left_and_right(keycode, mlx);
-	else if ( keycode == LEFT_KEY || keycode == RIGHT_KEY )
-		look_left_and_right(keycode,mlx);
-	else if (keycode == M_KEY)
-		change_map_status(mlx);
-	refresh_screen(mlx);
-	return (0);
-}
-
-

@@ -140,6 +140,16 @@ typedef struct s_line
 	int			text;
 }				t_line;
 
+typedef struct s_drawline
+{
+	int	dx;
+	int	dy;
+	int	sx;
+	int	sy;
+	int	err;
+	int	e2;
+}				t_drawline;
+
 void			init_libmlx(t_mlx *mlx);
 t_player		*init_player(t_player *player, t_map *map);
 int				refresh_screen(t_mlx *mlx);
@@ -162,6 +172,12 @@ t_point			verticalinter(t_mlx *m, float ang);
 void			render_gun(t_mlx *mlx);
 int				ft_exit(t_mlx *mlx);
 void			put_pixel_img(t_mlx *data, int x, int y, int color);
+int				key_hook(int keycode, t_mlx *mlx);
+void			move_up_and_down(int keycode, t_mlx *mlx);
+void			move_left_and_right(int keycode, t_mlx *mlx);
+void			look_left_and_right(int keycode, t_mlx *mlx);
+void			change_map_status(t_mlx *mlx);
+
 /*############## UTILS ###############*/
 
 unsigned int	ft_strlen(const char *str);
