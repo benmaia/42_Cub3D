@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   Cub3d.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bmiguel- <bmiguel-@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/03/15 20:27:51 by bmiguel-          #+#    #+#             */
+/*   Updated: 2023/03/15 20:28:15 by bmiguel-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef CUB3D_H
 # define CUB3D_H
 
@@ -33,14 +45,14 @@
 
 # define FOV 1.0471975512
 
+# include "../mlx_linux/mlx.h"
+# include <fcntl.h>
+# include <limits.h>
 # include <math.h>
+# include <stdbool.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
-# include <limits.h>
-# include <fcntl.h>
-# include <stdbool.h>
-# include "../mlx_linux/mlx.h"
 
 typedef struct s_map
 {
@@ -126,6 +138,7 @@ typedef struct s_ray
 	float		ywall;
 	double		nextx;
 	double		nexty;
+	int			hit;
 }				t_ray;
 
 typedef struct s_line
@@ -142,12 +155,12 @@ typedef struct s_line
 
 typedef struct s_drawline
 {
-	int	dx;
-	int	dy;
-	int	sx;
-	int	sy;
-	int	err;
-	int	e2;
+	int			dx;
+	int			dy;
+	int			sx;
+	int			sy;
+	int			err;
+	int			e2;
 }				t_drawline;
 
 void			init_libmlx(t_mlx *mlx);
@@ -204,7 +217,10 @@ void			map_close(t_mlx *g);
 char			*ft_strcpy(char *dest, char *src);
 void			*ft_memset(void *str, int c, size_t count);
 void			*ft_calloc(size_t n, size_t size);
-int			set_line_ter(int start, int end);
-int	ft_ternarie(float dir, int macro);
+int				set_line_ter(int start, int end);
+int				ft_ternarie(float dir, int macro);
+void			draw3dline(t_line l, t_mlx *m, int i);
+void			set_raycasting_values(t_line *l, t_mlx *m);
+void			render_floor(t_mlx *mlx, int i, int end, int start);
 
 #endif
