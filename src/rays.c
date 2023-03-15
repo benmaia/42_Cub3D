@@ -56,13 +56,13 @@ void set_raycasting_values(t_line *l, t_mlx *m)
 {
 	l->close = calc_rays(m, l->r_angle);
 	l->pjc = cos(normalize_ang(l->r_angle - m->p->ang)) * l->close.dist2pl * 2;
-	l->lineheigth = (m->win_x / l->pjc) * 60; 
-	l->drawStart = -l->lineheigth / 2 + m->win_x / 2;
+	l->lineheigth = (m->win_y / l->pjc) * 60; 
+	l->drawStart = -l->lineheigth / 2 + m->win_y / 2;
 	if(l->drawStart< 0)
 		l->drawStart = 0;
-	l->drawEnd = l->lineheigth / 2 + m->win_x / 2;
-	if(l->drawEnd >= m->win_x)
-		l->drawEnd = m->win_x - 1;
+	l->drawEnd = l->lineheigth / 2 + m->win_y / 2;
+	if(l->drawEnd >= m->win_y)
+		l->drawEnd = m->win_y - 1;
 	l->text = pick_texture(l->close, l->r_angle);
 	if (l->close.hit)
 		l->tex_x = (int)l->close.x * m->textures[l->text].w / 34 % m->textures[l->text].w;
@@ -79,7 +79,7 @@ void draw3dline(t_line l, t_mlx *m, int i)
 	y = l.drawStart;
 	while (y < l.drawEnd)
 	{
-		tex_y = ((y - m->win_x / 2 + l.lineheigth / 2) * m->textures[l.text].h) / l.lineheigth;            
+		tex_y = ((y - m->win_y / 2 + l.lineheigth / 2) * m->textures[l.text].h) / l.lineheigth;
 		tex_ptr = m->textures[l.text].addr + (tex_y * m->textures[l.text].line_len + l.tex_x * (m->textures[l.text].bpp / 8));
 		color = *(int *)tex_ptr;
 		put_pixel_img(m, i, y, color);
