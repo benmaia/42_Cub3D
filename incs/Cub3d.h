@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bmiguel- <bmiguel-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dmarceli <dmarceli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 20:27:51 by bmiguel-          #+#    #+#             */
-/*   Updated: 2023/03/15 20:28:15 by bmiguel-         ###   ########.fr       */
+/*   Updated: 2023/03/15 20:44:44 by dmarceli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,8 +148,8 @@ typedef struct s_line
 	float		pjc;
 	float		r_angle;
 	int			lineheigth;
-	int			drawStart;
-	int			drawEnd;
+	int			drawstart;
+	int			drawend;
 	int			text;
 }				t_line;
 
@@ -222,5 +222,6 @@ int				ft_ternarie(float dir, int macro);
 void			draw3dline(t_line l, t_mlx *m, int i);
 void			set_raycasting_values(t_line *l, t_mlx *m);
 void			render_floor(t_mlx *mlx, int i, int end, int start);
+void	map_valid(t_mlx *g);
 
 #endif

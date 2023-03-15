@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rays.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bmiguel- <bmiguel-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dmarceli <dmarceli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 20:26:11 by bmiguel-          #+#    #+#             */
-/*   Updated: 2023/03/15 20:26:12 by bmiguel-         ###   ########.fr       */
+/*   Updated: 2023/03/15 20:30:50 by dmarceli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,12 +73,12 @@ void	set_raycasting_values(t_line *l, t_mlx *m)
 	l->close = calc_rays(m, l->r_angle);
 	l->pjc = cos(normalize_ang(l->r_angle - m->p->ang)) * l->close.dist2pl * 2;
 	l->lineheigth = (m->win_y / l->pjc) * 60;
-	l->drawStart = -l->lineheigth / 2 + m->win_y / 2;
-	if (l->drawStart < 0)
-		l->drawStart = 0;
-	l->drawEnd = l->lineheigth / 2 + m->win_y / 2;
-	if (l->drawEnd >= m->win_y)
-		l->drawEnd = m->win_y - 1;
+	l->drawstart = -l->lineheigth / 2 + m->win_y / 2;
+	if (l->drawstart < 0)
+		l->drawstart = 0;
+	l->drawend = l->lineheigth / 2 + m->win_y / 2;
+	if (l->drawend >= m->win_y)
+		l->drawend = m->win_y - 1;
 	l->text = pick_texture(l->close, l->r_angle);
 	if (l->close.hit)
 		l->tex_x = (int)l->close.x * m->textures[l->text].w / 34
@@ -95,8 +95,8 @@ void	draw3dline(t_line l, t_mlx *m, int i)
 	char	*tex_ptr;
 	int		color;
 
-	y = l.drawStart;
-	while (y < l.drawEnd)
+	y = l.drawstart;
+	while (y < l.drawend)
 	{
 		tex_y = ((y - m->win_y / 2 + l.lineheigth / 2) * m->textures[l.text].h)
 			/ l.lineheigth;
